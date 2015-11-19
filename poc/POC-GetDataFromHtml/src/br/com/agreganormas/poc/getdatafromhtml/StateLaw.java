@@ -1,11 +1,12 @@
-public class LeiEstadual {
+package br.com.agreganormas.poc.getdatafromhtml;
+public class StateLaw {
 
-	String ano;
-	String numero;
-	String data;
-	String ementa;
-	String linkLei;
-	String linkLeiDetalhe;
+	private String ano;
+	private String numero;
+	private String data;
+	private String ementa;
+	private String linkLei;
+	private String linkLeiDetalhe;
 
 	public String getAno() {
 		return ano;
@@ -53,6 +54,13 @@ public class LeiEstadual {
 
 	public void setLinkLeiDetalhe(String linkLeiDetalhe) {
 		this.linkLeiDetalhe = linkLeiDetalhe;
+	}
+
+	@Override
+	public String toString() {
+		return "LeiEstadual [ano=" + ano + ", numero=" + numero + ", data="
+				+ data + ", ementa=" + ementa + ", linkLei=" + linkLei
+				+ ", linkLeiDetalhe=" + linkLeiDetalhe + "]";
 	}
 
 }
