@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Biblioteca EDT</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  
+  <script language="Javascript">
+      
+function showDiv(idSelect){
+
+    if(idSelect == "s1"){
+         document.getElementById('s2').style.display = "none";
+         document.getElementById('s3').style.display = "none";
+    }else if(idSelect == 's2'){
+            document.getElementById('s2').style.display = "block";
+            document.getElementById('s3').style.display = "none";
+
+     }else if(idSelect == 's3'){
+            document.getElementById('s3').style.display = "block";
+            document.getElementById('s2').style.display = "none";
+
+    }
+}
+</script>
+</head>
+<body>
+    
+       <select id="combobox" name="combobox" onChange="showDiv(this.value);">
+            <option value="s1">Federal</option>
+            <option value="s2">Estadual</option>
+            <option value="s3">Municipal</option>
+        </select>
+
+    
+    <select id="s2" name="s2" style="display: none;">
+            <option value="d">d</option>
+            <option value="e">e</option>
+            <option value="f">f</option>
+     </select> 
+    
+    <select id="s3" name="s3" style="display: none;">
+            <option value="g">g</option>
+            <option value="h">h</option>
+            <option value="i">i</option>
+        </select>
+    
+</body>
+</html>
