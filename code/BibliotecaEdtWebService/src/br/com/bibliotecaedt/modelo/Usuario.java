@@ -1,6 +1,6 @@
 package br.com.bibliotecaedt.modelo;
 
-public class Usuario {
+public class Usuario implements Validador {
 
 	private Integer identificador;
 	private String nome;
@@ -47,6 +47,7 @@ public class Usuario {
 		return senha;
 	}
 
+	@Override
 	public boolean estaCadastrado() {
 		return this.identificador != null && this.identificador > 0;
 	}

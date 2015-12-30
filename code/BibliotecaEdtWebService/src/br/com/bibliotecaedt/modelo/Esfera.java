@@ -1,16 +1,19 @@
 package br.com.bibliotecaedt.modelo;
 
-public class Esfera {
+public class Esfera implements Validador {
 
-	private Integer indentificar;
+	public static final String TB_CAMPO_ID_ESFERA = "id_esfera";
+	public static final String TB_CAMPO_DESCRICAO = "descricao";
+
+	private Integer idEsfera;
 	private String descricao;
 
-	public Integer getIndentificar() {
-		return indentificar;
+	public Integer getIdEsfera() {
+		return idEsfera;
 	}
 
-	public void setIndentificar(Integer indentificar) {
-		this.indentificar = indentificar;
+	public void setIdEsfera(Integer idEsfera) {
+		this.idEsfera = idEsfera;
 	}
 
 	public String getDescricao() {
@@ -19,6 +22,11 @@ public class Esfera {
 
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
+	}
+
+	@Override
+	public boolean estaCadastrado() {
+		return this.idEsfera != null && this.idEsfera > 0;
 	}
 
 }

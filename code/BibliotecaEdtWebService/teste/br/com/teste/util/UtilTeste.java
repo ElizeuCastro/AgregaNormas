@@ -9,7 +9,7 @@ import org.junit.Test;
 
 import br.com.bibliotecaedt.utilitario.Util;
 
-public class UtilTest {
+public class UtilTeste {
 
 	@Test
 	public void StringToDateTest() {

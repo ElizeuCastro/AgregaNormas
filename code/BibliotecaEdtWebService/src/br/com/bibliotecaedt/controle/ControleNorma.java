@@ -1,30 +1,54 @@
+/**
+ * Copyright (C) 2015 Biblioteca Edt.
+ * 
+ * Projeto final curso pós-graduação em:
+ * Engenharia de Software com Ênfase em Desenvolvimento Web.
+ * 
+ * UNINORTE - Laureate.
+ * 
+ * @author elizeu
+ * @author danilo
+ */
 package br.com.bibliotecaedt.controle;
 
 import java.util.List;
 
-import br.com.bibliotecaedt.enumerado.Tipo;
+import br.com.bibliotecaedt.enumerado.EsferaEnum;
+import br.com.bibliotecaedt.enumerado.EstadoEnum;
+import br.com.bibliotecaedt.enumerado.TipoDeNormaEnum;
 import br.com.bibliotecaedt.modelo.Norma;
-import br.com.bibliotecaedt.modelo.TipoDeNorma;
 import br.com.bibliotecaedt.persistencia.NormaDao;
 
+/**
+ * Classe responsável pelas regras operações de normas
+ *
+ */
 public class ControleNorma {
 
-	NormaDao normaDao = new NormaDao();
+	/**
+	 * Instância de {@link NormaDao}
+	 */
+	private NormaDao normaDao;
 
-	public void salvarLeis(final List<Norma> normas) {
-		final TipoDeNorma tipoDeNorma = new TipoDeNorma(Tipo.LEI.getId(), Tipo.LEI.getTexto());
-		for (Norma norma : normas) {
-			norma.setTipoDeNorma(tipoDeNorma);
-			normaDao.salvar(norma);
-		}
+	/**
+	 * Construtor
+	 */
+	public ControleNorma() {
+		normaDao = NormaDao.getInstancia();
 	}
-	
-	public void salvarDecretos(final List<Norma> normas) {
-		final TipoDeNorma tipoDeNorma = new TipoDeNorma(Tipo.DECRETO.getId(), Tipo.DECRETO.getTexto());
-		for (Norma norma : normas) {
-			norma.setTipoDeNorma(tipoDeNorma);
-			normaDao.salvar(norma);
-		}
+
+	/**
+	 * Salvar normas.
+	 * 
+	 * @param normas
+	 * @param estadoEnum
+	 * @param esferaEnum
+	 * @param tipoDeNormaEnum
+	 */
+	public void salvarNormas(final List<Norma> normas,
+			final EstadoEnum estadoEnum, final EsferaEnum esferaEnum,
+			final TipoDeNormaEnum tipoDeNormaEnum) {
+		normaDao.salvar(normas, estadoEnum, esferaEnum, tipoDeNormaEnum);
 	}
 
 }

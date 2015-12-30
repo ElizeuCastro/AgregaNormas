@@ -1,3 +1,14 @@
+/**
+ * Copyright (C) 2015 Biblioteca Edt.
+ * 
+ * Projeto final curso pós-graduação em:
+ * Engenharia de Software com Ênfase em Desenvolvimento Web.
+ * 
+ * UNINORTE - Laureate.
+ * 
+ * @author elizeu
+ * @author danilo
+ */
 package br.com.bibliotecaedt.gerenciador;
 
 import java.io.IOException;
@@ -10,6 +21,9 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import br.com.bibliotecaedt.controle.ControleNorma;
+import br.com.bibliotecaedt.enumerado.EsferaEnum;
+import br.com.bibliotecaedt.enumerado.EstadoEnum;
+import br.com.bibliotecaedt.enumerado.TipoDeNormaEnum;
 import br.com.bibliotecaedt.modelo.Norma;
 
 public class ExtrairNormasAmazonas implements ExtrairNormas {
@@ -20,8 +34,10 @@ public class ExtrairNormasAmazonas implements ExtrairNormas {
 
 	@Override
 	public void extrairLeis() {
-		final List<Norma> normas = new ArrayList<>();
 		try {
+			final List<Norma> normas = new ArrayList<>();
+			System.out.println("Amazonas - Leis - Início");
+			System.out.println("Amazonas - Leis - URL - " + BASE_URL);
 			Document document = Jsoup.connect(BASE_URL).get();
 			Elements elements = document.select("a[href]");
 			for (Element element : elements) {
@@ -48,11 +64,14 @@ public class ExtrairNormasAmazonas implements ExtrairNormas {
 					}
 				}
 			}
+			controle.salvarNormas(normas, EstadoEnum.AMAZONAS,
+					EsferaEnum.ESTADUAL, TipoDeNormaEnum.LEI);
+			System.out.println(getClass().getCanonicalName() + " - Leis - Fim");
 		} catch (IOException e) {
-			System.out.println(e.getMessage());
+			System.out.println(getClass().getCanonicalName()
+					+ " - Leis - Erro => " + e.getMessage());
+			e.printStackTrace();
 		}
-		System.out.println("Leis do Amazonas: " + normas.size());
-		controle.salvarLeis(normas);
 	}
 
 	/**
@@ -104,6 +123,7 @@ public class ExtrairNormasAmazonas implements ExtrairNormas {
 	private String recuperaTextoDaLei(final String url) {
 		final StringBuilder builder = new StringBuilder();
 		try {
+			System.out.println("# Url do texto da lei " + url);
 			final Document document = Jsoup.connect(url).get();
 			for (Element element : document.select("body p")) {
 				builder.append(element.text()).append("\n");

@@ -11,24 +11,24 @@
  */
 package br.com.bibliotecaedt.enumerado;
 
-public enum Municipio {
+public enum EstadoEnum {
 
-	MANAUS("Manaus", EstadoEnum.AMAZONAS);
+	AMAZONAS("Amazonas", "AM"),
+	ACRE("Acre", "AC");
 
 	private String nome;
-	private EstadoEnum estado;
+	private String uf;
 
-	private Municipio(String nome, EstadoEnum estado) {
+	private EstadoEnum(String nome, String uf) {
 		this.nome = nome;
-		this.estado = estado;
+		this.uf = uf;
 	}
 
 	public String getNome() {
 		return nome;
 	}
 
-	public EstadoEnum getEstado() {
-		return estado;
+	public String getUf() {
+		return uf;
 	}
-
 }

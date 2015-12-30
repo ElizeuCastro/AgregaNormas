@@ -11,24 +11,20 @@
  */
 package br.com.bibliotecaedt.enumerado;
 
-public enum Municipio {
+public enum EsferaEnum {
 
-	MANAUS("Manaus", EstadoEnum.AMAZONAS);
+	FEDERAL("Esfera Federal"), 
+	ESTADUAL("Esfera Estadual"), 
+	MUNICIPAL("Esfera Municipal");
 
 	private String nome;
-	private EstadoEnum estado;
 
-	private Municipio(String nome, EstadoEnum estado) {
+	private EsferaEnum(String nome) {
 		this.nome = nome;
-		this.estado = estado;
 	}
 
 	public String getNome() {
 		return nome;
-	}
-
-	public EstadoEnum getEstado() {
-		return estado;
 	}
 
 }

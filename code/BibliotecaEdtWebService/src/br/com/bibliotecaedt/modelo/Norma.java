@@ -4,6 +4,7 @@ public class Norma {
 
 	private Integer identificador;
 	private TipoDeNorma tipoDeNorma;
+	private Esfera esfera;
 	private String ano;
 	private String numero;
 	private String dataPublicacao;
@@ -66,9 +67,18 @@ public class Norma {
 		this.descricao = descricao;
 	}
 
+	public Esfera getEsfera() {
+		return esfera;
+	}
+
+	public void setEsfera(Esfera esfera) {
+		this.esfera = esfera;
+	}
+
 	@Override
 	public String toString() {
-		return "Norma [identificador=" + identificador + ", ano=" + ano
+		return "Norma [identificador=" + identificador + ", tipoDeNorma="
+				+ tipoDeNorma + ", esfera=" + esfera + ", ano=" + ano
 				+ ", numero=" + numero + ", dataPublicacao=" + dataPublicacao
 				+ ", resumo=" + resumo + ", descricao=" + descricao + "]";
 	}

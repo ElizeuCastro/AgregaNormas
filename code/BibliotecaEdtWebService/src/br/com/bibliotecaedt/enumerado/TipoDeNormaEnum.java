@@ -11,24 +11,24 @@
  */
 package br.com.bibliotecaedt.enumerado;
 
-public enum Municipio {
+public enum TipoDeNormaEnum {
 
-	MANAUS("Manaus", EstadoEnum.AMAZONAS);
+	LEI(1, "Lei"), DECRETO(2, "Decreto");
 
+	private int id;
 	private String nome;
-	private EstadoEnum estado;
 
-	private Municipio(String nome, EstadoEnum estado) {
+	private TipoDeNormaEnum(int id, String nome) {
+		this.id = id;
 		this.nome = nome;
-		this.estado = estado;
+	}
+
+	public int getId() {
+		return id;
 	}
 
 	public String getNome() {
 		return nome;
-	}
-
-	public EstadoEnum getEstado() {
-		return estado;
 	}
 
 }

@@ -25,8 +25,10 @@ public class BuscarNormas implements Job {
 		extractores.add(new ExtrairNormasManaus());
 		
 		for (ExtrairNormas extrairDadosHtml : extractores){
+			System.out.println("Inicio da extração de normas " + new Date());
 			extrairDadosHtml.extrairLeis();
 			extrairDadosHtml.extrairDecretos();
+			System.out.println("Fim da extração de normas " + new Date());
 		}
 		
 	}
