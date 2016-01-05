@@ -11,10 +11,15 @@
  */
 package br.com.bibliotecaedt.gerenciador;
 
+/**
+ * 
+ * Classe que contém o contrato para extração de normas.
+ */
 public interface ExtrairNormas {
 
-	void extrairLeis();
-
-	void extrairDecretos();
+    /**
+     * Método que trata das regras de extração e armazenamento de normas.
+     */
+    void extrairNormas();
 
 }

@@ -15,22 +15,22 @@ import br.com.bibliotecaedt.gerenciador.ExtrairNormasManaus;
 
 public class BuscarNormas implements Job {
 
-	@Override
-	public void execute(JobExecutionContext context) throws JobExecutionException {
-		System.out.println("Execution " + new Date());
-		
-		final List<ExtrairNormas> extractores = new ArrayList<ExtrairNormas>();
-		extractores.add(new ExtrairNormasFederais());
-		extractores.add(new ExtrairNormasAmazonas());
-		extractores.add(new ExtrairNormasManaus());
-		
-		for (ExtrairNormas extrairDadosHtml : extractores){
-			System.out.println("Inicio da extração de normas " + new Date());
-			extrairDadosHtml.extrairLeis();
-			extrairDadosHtml.extrairDecretos();
-			System.out.println("Fim da extração de normas " + new Date());
-		}
-		
+    @Override
+    public void execute(JobExecutionContext context)
+	    throws JobExecutionException {
+	System.out.println("Execution " + new Date());
+
+	final List<ExtrairNormas> extractores = new ArrayList<ExtrairNormas>();
+	extractores.add(new ExtrairNormasFederais());
+	extractores.add(new ExtrairNormasAmazonas());
+	extractores.add(new ExtrairNormasManaus());
+
+	for (ExtrairNormas extrairDadosHtml : extractores) {
+	    System.out.println("Inicio da extração de normas " + new Date());
+	    extrairDadosHtml.extrairNormas();
+	    System.out.println("Fim da extração de normas " + new Date());
 	}
+
+    }
 
 }

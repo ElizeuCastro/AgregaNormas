@@ -38,7 +38,7 @@ public class ControleNormaTeste {
 		List<Norma> normas = new ArrayList<>();
 		normas.add(norma);
 		
-		controle.salvarNormas(normas,EstadoEnum.AMAZONAS, EsferaEnum.ESTADUAL, TipoDeNormaEnum.LEI);
+		//controle.salvarNormas(normas,EstadoEnum.AMAZONAS, EsferaEnum.ESTADUAL, TipoDeNormaEnum.LEI);
 	}
 	
 	@Test
@@ -53,7 +53,7 @@ public class ControleNormaTeste {
 		List<Norma> normas = new ArrayList<>();
 		normas.add(norma);
 		
-		controle.salvarNormas(normas, EstadoEnum.ACRE, EsferaEnum.ESTADUAL, TipoDeNormaEnum.LEI);
+		//controle.salvarNormas(normas, EstadoEnum.ACRE, EsferaEnum.ESTADUAL, TipoDeNormaEnum.LEI);
 	}
 
 }

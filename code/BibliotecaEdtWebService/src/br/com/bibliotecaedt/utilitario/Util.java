@@ -31,7 +31,8 @@ public final class Util {
 	public static java.sql.Date StringParaSqlDate(final String data) {
 		java.sql.Date sqlDate = null;
 		try {
-			final String strDate = data.replace(".", "-");
+			String strDate = data.replace(".", "-");
+			strDate = strDate.replace("1º", "01");
 			SimpleDateFormat format = new SimpleDateFormat("yy-MM-dd");
 			final Date date = format.parse(strDate);
 			sqlDate = new java.sql.Date(date.getTime());

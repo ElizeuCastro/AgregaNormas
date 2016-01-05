@@ -11,6 +11,7 @@
  */
 package br.com.bibliotecaedt.controle;
 
+import java.util.HashMap;
 import java.util.List;
 
 import br.com.bibliotecaedt.enumerado.EsferaEnum;
@@ -20,35 +21,36 @@ import br.com.bibliotecaedt.modelo.Norma;
 import br.com.bibliotecaedt.persistencia.NormaDao;
 
 /**
- * Classe responsável pelas regras operações de normas
+ * Classe responsável pelas regras e operações de normas
  *
  */
 public class ControleNorma {
 
-	/**
-	 * Instância de {@link NormaDao}
-	 */
-	private NormaDao normaDao;
+    /**
+     * Instância de {@link NormaDao}
+     */
+    private final NormaDao normaDao;
 
-	/**
-	 * Construtor
-	 */
-	public ControleNorma() {
-		normaDao = NormaDao.getInstancia();
-	}
+    /**
+     * Construtor
+     */
+    public ControleNorma() {
+	normaDao = NormaDao.getInstancia();
+    }
 
-	/**
-	 * Salvar normas.
-	 * 
-	 * @param normas
-	 * @param estadoEnum
-	 * @param esferaEnum
-	 * @param tipoDeNormaEnum
-	 */
-	public void salvarNormas(final List<Norma> normas,
-			final EstadoEnum estadoEnum, final EsferaEnum esferaEnum,
-			final TipoDeNormaEnum tipoDeNormaEnum) {
-		normaDao.salvar(normas, estadoEnum, esferaEnum, tipoDeNormaEnum);
-	}
+    /**
+     * Salva normas.
+     * 
+     * @param normas
+     *            {@link List} de normas.
+     * @param estadoEnum
+     *            enumerado que indica o estado da federação
+     * @param esferaEnum
+     *            enumerado que indica o tipo de esfera politica.
+     */
+    public void salvarNormas(final HashMap<TipoDeNormaEnum, List<Norma>> normas,
+	    final EstadoEnum estadoEnum, final EsferaEnum esferaEnum) {
+	normaDao.salvar(normas, estadoEnum, esferaEnum);
+    }
 
 }
