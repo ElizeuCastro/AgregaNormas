@@ -48,7 +48,8 @@ public class ControleNorma {
      * @param esferaEnum
      *            enumerado que indica o tipo de esfera politica.
      */
-    public void salvarNormas(final HashMap<TipoDeNormaEnum, List<Norma>> normas,
+    public void salvarNormas(
+	    final HashMap<TipoDeNormaEnum, List<Norma>> normas,
 	    final EstadoEnum estadoEnum, final EsferaEnum esferaEnum) {
 	normaDao.salvar(normas, estadoEnum, esferaEnum);
     }

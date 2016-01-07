@@ -109,34 +109,47 @@ public class NormaDao {
 	    return;
 	}
 
-	final Connection connection = Conexao.getConexao();
-	Savepoint savepoint = null;
+	if (esferaEnum != null) {
+	    switch (esferaEnum) {
+	    case ESTADUAL:
 
-	try {
-	    connection.setAutoCommit(false);
-	    savepoint = connection.setSavepoint();
+		final Connection connection = Conexao.getConexao();
+		Savepoint savepoint = null;
 
-	    deletarNormasEstaduais(estadoEnum, connection);
+		try {
+		    connection.setAutoCommit(false);
+		    savepoint = connection.setSavepoint();
 
-	    salvarLeis(normas, estadoEnum, esferaEnum, connection);
+		    deletarNormasEstaduais(estadoEnum, connection);
 
-	    salvarDecretos(normas, estadoEnum, esferaEnum, connection);
+		    salvarLeis(normas, estadoEnum, esferaEnum, connection);
 
-	    connection.commit();
+		    salvarDecretos(normas, estadoEnum, esferaEnum, connection);
 
-	} catch (final SQLException exception) {
-	    try {
-		System.out.println("Salvar Normas: Erro => "
-			+ exception.getMessage());
-		connection.rollback(savepoint);
-		connection.close();
-		Conexao.fechaConexao();
-	    } catch (final SQLException e) {
-		System.out.println("Salvar Normas: Erro ao fechar conexão => "
-			+ e.getMessage());
-		e.printStackTrace();
+		    connection.commit();
+
+		} catch (final SQLException exception) {
+		    try {
+			System.out.println("Salvar Normas: Erro => "
+				+ exception.getMessage());
+			connection.rollback(savepoint);
+			connection.close();
+			Conexao.fechaConexao();
+		    } catch (final SQLException e) {
+			System.out.println("Salvar Normas: Erro ao fechar conexão => "
+				+ e.getMessage());
+			e.printStackTrace();
+		    }
+		}
+		break;
+	    case FEDERAL:
+		NormaFederalDao.getInstancia().salvar(normas);
+		break;
+	    default: // MUNICIPAL
+		break;
 	    }
 	}
+
     }
 
     /**

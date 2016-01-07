@@ -21,8 +21,8 @@ import br.com.bibliotecaedt.gerenciador.ExtrairNormasFederais;
 public class DecretosFederais {
 
     public static void main(String[] args) {
-	ExtrairNormas decretos = new ExtrairNormasFederais();
-	decretos.extrairNormas();
+	ExtrairNormas normasFederais = new ExtrairNormasFederais();
+	normasFederais.extrairNormas();
     }
     
     

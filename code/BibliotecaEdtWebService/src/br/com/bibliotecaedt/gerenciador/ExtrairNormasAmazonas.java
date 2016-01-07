@@ -33,6 +33,11 @@ import br.com.bibliotecaedt.modelo.Norma;
  *
  */
 public class ExtrairNormasAmazonas implements ExtrairNormas {
+    
+    /**
+     * Time out.
+     */
+    private static final int TIMEOUT = 60 * 1000;
 
     /**
      * URL inicial que contém as leis estaduais do Amazonas
@@ -45,11 +50,6 @@ public class ExtrairNormasAmazonas implements ExtrairNormas {
     private static final String LINK_DECRETOS_ESTADUAIS = "http://www.sefaz.am.gov.br/Areas/OpcaoSistemas/SILT/Normas/Legisla%C3%A7%C3%A3o%20Estadual/Decreto%20Estadual/Decreto%20Estadual.htm";
 
     /**
-     * Texto a ser descartado ao busca ao extrair o conteúdo da norma.
-     */
-    private static final String NAO_E_LEI = "ESTE TEXTO NÃO SUBSTITUI O PUBLICADO NO DIÁRIO OFICIAL";
-
-    /**
      * Instância de {@link ControleNorma}.
      */
     private final ControleNorma controle = new ControleNorma();
@@ -60,17 +60,17 @@ public class ExtrairNormasAmazonas implements ExtrairNormas {
     @Override
     public void extrairNormas() {
 	final HashMap<TipoDeNormaEnum, List<Norma>> normas = new HashMap<TipoDeNormaEnum, List<Norma>>();
-	
+
 	final List<Norma> leis = leis();
 	if (leis != null && !leis.isEmpty()) {
 	    normas.put(TipoDeNormaEnum.LEI, leis);
 	}
-	
+
 	final List<Norma> decretos = decretos();
 	if (decretos != null && !decretos.isEmpty()) {
 	    normas.put(TipoDeNormaEnum.DECRETO, decretos);
 	}
-	
+
 	System.out.println(getClass().getCanonicalName()
 		+ " - db- salvar - iniciado");
 
@@ -88,11 +88,14 @@ public class ExtrairNormasAmazonas implements ExtrairNormas {
     private List<Norma> leis() {
 	List<Norma> leis = new ArrayList<Norma>();
 	try {
-	    System.out.println("Extrair Leis Início");
+	    System.out.println(getClass().getCanonicalName()
+		    + " Extrair Leis Início");
 	    leis = extrairNormas(LINK_LEIS_ESTADUAIS);
-	    System.out.println("Extrair Leis Fim");
-	} catch (IOException e) {
-	    System.out.println("Erro ao extrair leis => " + e.getMessage());
+	    System.out.println(getClass().getCanonicalName()
+		    + " Extrair Leis Fim");
+	} catch (final IOException e) {
+	    System.out.println(getClass().getCanonicalName()
+		    + " Erro ao extrair leis => " + e.getMessage());
 	}
 	return leis;
     }
@@ -105,11 +108,14 @@ public class ExtrairNormasAmazonas implements ExtrairNormas {
     private List<Norma> decretos() {
 	List<Norma> decretos = new ArrayList<Norma>();
 	try {
-	    System.out.println("Extrair Decretos Início");
+	    System.out.println(getClass().getCanonicalName()
+		    + " Extrair Decretos Início");
 	    decretos = extrairNormas(LINK_DECRETOS_ESTADUAIS);
-	    System.out.println("Extrair Leis Fim");
-	} catch (IOException e) {
-	    System.out.println("Erro ao extrair leis => " + e.getMessage());
+	    System.out.println(getClass().getCanonicalName()
+		    + " Extrair Leis Fim");
+	} catch (final IOException e) {
+	    System.out.println(getClass().getCanonicalName()
+		    + " Erro ao extrair leis => " + e.getMessage());
 	}
 	return decretos;
     }
@@ -125,12 +131,12 @@ public class ExtrairNormasAmazonas implements ExtrairNormas {
     private List<Norma> extrairNormas(final String linkNormas)
 	    throws IOException {
 	final List<Norma> normas = new ArrayList<>();
-	final Document document = Jsoup.connect(linkNormas).get();
+	final Document document = Jsoup.connect(linkNormas).timeout(TIMEOUT).get();
 	final Elements elements = document.select("a[href]");
 	for (final Element element : elements) {
 	    if (eElementoDeNorma(element, linkNormas)) {
 		final String linkLei = element.attr("abs:href");
-		final Document docLei = Jsoup.connect(linkLei).get();
+		final Document docLei = Jsoup.connect(linkLei).timeout(TIMEOUT).get();
 		final Elements table = docLei.select("table");
 		for (final Element row : table.get(1).select("tr")) {
 		    final Elements tds = row.select("td");
@@ -138,13 +144,14 @@ public class ExtrairNormasAmazonas implements ExtrairNormas {
 			    && naoECabecalhoDaTabela(tds.get(0), tds.get(1),
 				    tds.get(2))) {
 			final Norma norma = new Norma();
-			norma.setAno(element.text());
-			norma.setNumero(tds.get(0).text());
+			norma.setAno(element.text().replaceAll("\\s", ""));
+			norma.setNumero(tds.get(0).text().replaceAll("\\s", ""));
 			final String linkLeiDetalhe = recuperaLinkDeDetalheDaNorma(tds
 				.get(0));
-			norma.setDataPublicacao(tds.get(1).text());
+			norma.setDataPublicacao(tds.get(1).text()
+				.replaceAll("\\s", ""));
 			norma.setResumo(tds.get(2).text());
-			norma.setDescricao(recuperaTextoDaNorma(linkLeiDetalhe));
+			norma.setDescricao(linkLeiDetalhe);
 			normas.add(norma);
 		    }
 		}
@@ -195,29 +202,6 @@ public class ExtrairNormasAmazonas implements ExtrairNormas {
     private String recuperaLinkDeDetalheDaNorma(final Element element) {
 	return element != null ? element.select("a[href]").attr("abs:href")
 		: "";
-    }
-
-    /**
-     * Extrai o texto de detalhe de norma.
-     * 
-     * @param url
-     * @return
-     */
-    private String recuperaTextoDaNorma(final String url) {
-	final StringBuilder builder = new StringBuilder();
-	try {
-	    final Document document = Jsoup.connect(url).get();
-	    for (final Element element : document.select("body p")) {
-		builder.append(element.text()).append("\n");
-	    }
-	    if (builder.length() > 0) {
-		final int indexOf = builder.indexOf(NAO_E_LEI);
-		builder.delete(0, indexOf + NAO_E_LEI.length());
-	    }
-	} catch (final IOException e) {
-	    e.printStackTrace();
-	}
-	return builder.length() > 0 ? builder.toString() : "";
     }
 
 }

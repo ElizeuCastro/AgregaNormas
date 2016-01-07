@@ -33,7 +33,9 @@ public final class Util {
 		try {
 			String strDate = data.replace(".", "-");
 			strDate = strDate.replace("1º", "01");
-			SimpleDateFormat format = new SimpleDateFormat("yy-MM-dd");
+			strDate = strDate.replace("/", "");
+			strDate = strDate.replaceAll("\\s", "");
+			SimpleDateFormat format = new SimpleDateFormat("dd-MM-yy");
 			final Date date = format.parse(strDate);
 			sqlDate = new java.sql.Date(date.getTime());
 		} catch (Exception e) {

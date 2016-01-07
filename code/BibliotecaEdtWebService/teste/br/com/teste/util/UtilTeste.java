@@ -13,7 +13,7 @@ public class UtilTeste {
 
 	@Test
 	public void StringToDateTest() {
-		Date date = Util.StringParaSqlDate("98.06.07");
+		Date date = Util.StringParaSqlDate("7.6.1998");
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(date);
 		assertEquals(1998, calendar.get(Calendar.YEAR));
