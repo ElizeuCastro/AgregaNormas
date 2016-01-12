@@ -13,7 +13,7 @@ package br.com.bibliotecaedt.enumerado;
 
 public enum ErroDeUsuario {
 
-	LOGIN_DUPLICADO(1, "Já existe um usuário com este login cadastrado"), 
+	LOGIN_DUPLICADO(1, "Já existe um usuário com este apelido cadastrado"), 
 	EMAIL_DUPLICADO(2, "Já existe um usuário com este email cadastrado"),
 	LOGIN_SENHA_INVALIDO(3, "Login ou senha inválidos");
 

@@ -11,7 +11,6 @@ import org.quartz.JobExecutionException;
 import br.com.bibliotecaedt.gerenciador.ExtrairNormas;
 import br.com.bibliotecaedt.gerenciador.ExtrairNormasAmazonas;
 import br.com.bibliotecaedt.gerenciador.ExtrairNormasFederais;
-import br.com.bibliotecaedt.gerenciador.ExtrairNormasManaus;
 
 public class BuscarNormas implements Job {
 
@@ -23,7 +22,7 @@ public class BuscarNormas implements Job {
 	final List<ExtrairNormas> extractores = new ArrayList<ExtrairNormas>();
 	extractores.add(new ExtrairNormasFederais());
 	extractores.add(new ExtrairNormasAmazonas());
-	extractores.add(new ExtrairNormasManaus());
+	//extractores.add(new ExtrairNormasManaus());
 
 	for (ExtrairNormas extrairDadosHtml : extractores) {
 	    System.out.println("Inicio da extração de normas " + new Date());
