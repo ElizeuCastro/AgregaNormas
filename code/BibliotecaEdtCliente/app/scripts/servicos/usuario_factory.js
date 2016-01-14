@@ -21,6 +21,16 @@ app.factory('ServicoUsuario', function($http) {
      	  callback.falha(data, status);
       });
   };
+
+  factory.autenticar = function (data, callback) { 
+
+    $http.post(URL_AUTENTICAR, data, config)
+      .success(function (data, status, headers, config) {
+        callback.sucesso(data, status);
+      }).error(function (data, status, header, config) {
+        callback.falha(data, status);
+      });
+  };
   
   return factory;
 

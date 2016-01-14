@@ -54,4 +54,35 @@ public class ControleNorma {
 	normaDao.salvar(normas, estadoEnum, esferaEnum);
     }
 
+    /**
+     * @param federal
+     * @param tipo
+     * @param numero
+     * @param inicio
+     * @param limite
+     */
+    public List<Norma> buscarNormas(final EsferaEnum esferaEnum,
+	    final Integer tipo, final String numero, Integer limite,
+	    Integer inicio) {
+	return normaDao.buscarNormas(esferaEnum, tipo, numero, limite, inicio);
+    }
+
+    /**
+     * @param federal
+     * @param tipo
+     * @param numero
+     * @return
+     */
+    public int total(EsferaEnum esferaEnum, Integer tipo, String numero) {
+	return normaDao.total(esferaEnum, tipo, numero);
+    }
+
+    /**
+     * @param federal
+     * @return
+     */
+    public List<Norma> buscarAnos(EsferaEnum esferaEnum) {
+	return normaDao.buscarAnos(esferaEnum);
+    }
+
 }

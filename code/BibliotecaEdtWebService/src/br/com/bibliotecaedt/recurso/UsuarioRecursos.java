@@ -18,12 +18,12 @@ import br.com.bibliotecaedt.utilitario.Util;
 import com.google.gson.Gson;
 
 @Path("/usuario")
-public class RecursoUsuario {
+public class UsuarioRecursos {
 
     private ControleUsuario controle;
     private Gson gson;
 
-    public RecursoUsuario() {
+    public UsuarioRecursos() {
 	controle = new ControleUsuario();
 	gson = new Gson();
     }
@@ -71,7 +71,7 @@ public class RecursoUsuario {
 	    return Response.status(Status.BAD_REQUEST).build();
 	}
 	Response response = Response.status(Status.BAD_REQUEST).build();
-	final Usuario usuario = controle.salvar(new Usuario(login, senha));
+	final Usuario usuario = controle.autenticar(new Usuario(login, senha));
 	if (usuario.estaCadastrado()) {
 	    response = Response.ok(gson.toJson(usuario)).build();
 	} else {

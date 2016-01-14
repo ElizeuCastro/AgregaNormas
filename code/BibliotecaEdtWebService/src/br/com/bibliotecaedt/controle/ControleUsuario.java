@@ -20,26 +20,26 @@ import br.com.bibliotecaedt.persistencia.UsuarioDao;
  */
 public final class ControleUsuario {
 
-	private UsuarioDao usuarioDao;
+    private UsuarioDao usuarioDao;
 
-	public ControleUsuario() {
-		usuarioDao = UsuarioDao.getInstancia();
-	}
+    public ControleUsuario() {
+	usuarioDao = UsuarioDao.getInstancia();
+    }
 
-	public Usuario salvar(Usuario usuario) {
-		return usuarioDao.cadastrar(usuario);
-	}
+    public Usuario salvar(Usuario usuario) {
+	return usuarioDao.cadastrar(usuario);
+    }
 
-	public Usuario autenticar(Usuario usuario) {
-		return usuarioDao.autenticar(usuario);
-	}
+    public Usuario autenticar(Usuario usuario) {
+	return usuarioDao.autenticar(usuario);
+    }
 
-	public boolean verificarEmailExiste(String email) {
-		return usuarioDao.emailExiste(email);
-	}
+    public boolean verificarEmailExiste(String email) {
+	return usuarioDao.emailExiste(email);
+    }
 
-	public boolean verificarLoginExiste(String login) {
-		return usuarioDao.loginExiste(login);
-	}
+    public boolean verificarLoginExiste(String login) {
+	return usuarioDao.loginExiste(login);
+    }
 
 }

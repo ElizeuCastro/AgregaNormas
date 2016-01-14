@@ -13,22 +13,22 @@ package br.com.bibliotecaedt.enumerado;
 
 public enum TipoDeNormaEnum {
 
-	LEI(1, "Lei"), DECRETO(2, "Decreto");
+    LEI(1, "Lei"), DECRETO(2, "Decreto");
 
-	private int id;
-	private String nome;
+    private int id;
+    private String nome;
 
-	private TipoDeNormaEnum(int id, String nome) {
-		this.id = id;
-		this.nome = nome;
-	}
+    private TipoDeNormaEnum(int id, String nome) {
+	this.id = id;
+	this.nome = nome;
+    }
 
-	public int getId() {
-		return id;
-	}
+    public int getId() {
+	return id;
+    }
 
-	public String getNome() {
-		return nome;
-	}
+    public String getNome() {
+	return nome;
+    }
 
 }

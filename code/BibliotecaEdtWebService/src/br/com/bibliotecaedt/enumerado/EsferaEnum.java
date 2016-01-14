@@ -13,18 +13,24 @@ package br.com.bibliotecaedt.enumerado;
 
 public enum EsferaEnum {
 
-	FEDERAL("Esfera Federal"), 
-	ESTADUAL("Esfera Estadual"), 
-	MUNICIPAL("Esfera Municipal");
+    FEDERAL(1, "Esfera Federal"), 
+    ESTADUAL(2, "Esfera Estadual"), 
+    MUNICIPAL(3, "Esfera Municipal");
 
-	private String nome;
+    private int tipo;
+    private String nome;
 
-	private EsferaEnum(String nome) {
-		this.nome = nome;
-	}
+    private EsferaEnum(final int tipo, final String nome) {
+	this.tipo = tipo;
+	this.nome = nome;
+    }
 
-	public String getNome() {
-		return nome;
-	}
+    public String getNome() {
+	return nome;
+    }
+    
+    public int getTipo() {
+	return tipo;
+    }
 
 }

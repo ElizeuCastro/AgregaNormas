@@ -136,8 +136,9 @@ public class NormaDao {
 			connection.close();
 			Conexao.fechaConexao();
 		    } catch (final SQLException e) {
-			System.out.println("Salvar Normas: Erro ao fechar conexão => "
-				+ e.getMessage());
+			System.out
+				.println("Salvar Normas: Erro ao fechar conexão => "
+					+ e.getMessage());
 			e.printStackTrace();
 		    }
 		}
@@ -316,5 +317,63 @@ public class NormaDao {
 	statement.setInt(6, norma.getTipoDeNorma().getIdentificador());
 	statement.setInt(7, norma.getEsfera().getIdEsfera());
 	statement.execute();
+    }
+
+    /**
+     * @param esferaEnum
+     * @param tipo
+     * @param numero
+     * @param s
+     * @param limite
+     * @return
+     */
+    public List<Norma> buscarNormas(EsferaEnum esferaEnum, Integer tipo,
+	    String numero, Integer limite, Integer inicio) {
+	List<Norma> normas = new ArrayList<Norma>();
+	switch (esferaEnum) {
+	case ESTADUAL:
+
+	    break;
+	case FEDERAL:
+	    normas = NormaFederalDao.getInstancia().buscar(tipo, numero,
+		    limite, inicio);
+	    break;
+	default: // MUNICIPAL
+	    break;
+	}
+
+	return normas;
+    }
+
+    /**
+     * @param esferaEnum
+     * @param tipo
+     * @param numero
+     * @return
+     */
+    public int total(EsferaEnum esferaEnum, Integer tipo, String numero) {
+	switch (esferaEnum) {
+	case ESTADUAL:
+	    return 0;
+	case FEDERAL:
+	    return NormaFederalDao.getInstancia().total(tipo, numero);
+	default: // MUNICIPAL
+	    return 0;
+	}
+    }
+
+    /**
+     * @param esferaEnum
+     * @return
+     */
+    public List<Norma> buscarAnos(EsferaEnum esferaEnum) {
+	switch (esferaEnum) {
+	case ESTADUAL:
+	    return null;
+	case FEDERAL:
+	    return NormaFederalDao.getInstancia().buscarAnos();
+	default: // MUNICIPAL
+	    return null;
+	}
     }
 }
