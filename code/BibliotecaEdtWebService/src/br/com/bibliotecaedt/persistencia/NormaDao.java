@@ -321,13 +321,13 @@ public class NormaDao {
 
     /**
      * @param esferaEnum
-     * @param tipo
+     * @param tipoDeNorma
      * @param numero
      * @param s
      * @param limite
      * @return
      */
-    public List<Norma> buscarNormas(EsferaEnum esferaEnum, Integer tipo,
+    public List<Norma> buscarNormas(EsferaEnum esferaEnum, TipoDeNormaEnum tipoDeNorma,
 	    String numero, Integer limite, Integer inicio) {
 	List<Norma> normas = new ArrayList<Norma>();
 	switch (esferaEnum) {
@@ -335,7 +335,7 @@ public class NormaDao {
 
 	    break;
 	case FEDERAL:
-	    normas = NormaFederalDao.getInstancia().buscar(tipo, numero,
+	    normas = NormaFederalDao.getInstancia().buscar(tipoDeNorma, numero,
 		    limite, inicio);
 	    break;
 	default: // MUNICIPAL
@@ -347,16 +347,16 @@ public class NormaDao {
 
     /**
      * @param esferaEnum
-     * @param tipo
+     * @param tipoDeNorma
      * @param numero
      * @return
      */
-    public int total(EsferaEnum esferaEnum, Integer tipo, String numero) {
+    public int total(EsferaEnum esferaEnum, TipoDeNormaEnum tipoDeNorma, String numero) {
 	switch (esferaEnum) {
 	case ESTADUAL:
 	    return 0;
 	case FEDERAL:
-	    return NormaFederalDao.getInstancia().total(tipo, numero);
+	    return NormaFederalDao.getInstancia().total(tipoDeNorma, numero);
 	default: // MUNICIPAL
 	    return 0;
 	}
@@ -372,6 +372,22 @@ public class NormaDao {
 	    return null;
 	case FEDERAL:
 	    return NormaFederalDao.getInstancia().buscarAnos();
+	default: // MUNICIPAL
+	    return null;
+	}
+    }
+
+    /**
+     * @param esferaEnum
+     * @param ano
+     * @return
+     */
+    public List<Norma> buscarPorAno(EsferaEnum esferaEnum, String ano) {
+	switch (esferaEnum) {
+	case ESTADUAL:
+	    return null;
+	case FEDERAL:
+	    return NormaFederalDao.getInstancia().buscarPorAno(ano);
 	default: // MUNICIPAL
 	    return null;
 	}

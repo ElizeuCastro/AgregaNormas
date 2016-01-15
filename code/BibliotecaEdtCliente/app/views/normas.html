@@ -13,40 +13,51 @@
             	<input type="text" class="form-control" id="autenticar_login" placeholder="Numero da norma" ng-model="autLogin">
           	</div>
 
-          <button type="submit" class="btn btn-primary" ng-click="autenticar()">Entrar</button>
+          <button type="submit" class="btn btn-primary" ng-click="buscar()">Buscar</button>
         </fieldset>  
       </div>
     </form>
-    <form class="form-inline" style="padding: 10px;">     
+
+    <form class="form-inline" style="padding: 10px;" id="form_anos">     
     	<div class="panel panel-default panel-body">
         	<div class="container">
 		  		<table class="table table-striped">
-				    <thead>
-				      <tr>
-				        <th>Firstname</th>
-				        <th>Lastname</th>
-				        <th>Email</th>
-				      </tr>
-				    </thead>
 				    <tbody>
-				      <tr>
-				        <td>John</td>
-				        <td>Doe</td>
-				        <td>john@example.com</td>
-				      </tr>
-				      <tr>
-				        <td>Mary</td>
-				        <td>Moe</td>
-				        <td>mary@example.com</td>
-				      </tr>
-				      <tr>
-				        <td>July</td>
-				        <td>Dooley</td>
-				        <td>july@example.com</td>
+				      <tr ng-repeat='ano in anos'>
+				        <td ng-repeat='coluna in ano.colunas'>
+				        	<a href="" ng-click="buscarNormasPorAno(coluna)">{{coluna}}</a>
+				        </td>
 				      </tr>
 				    </tbody>
 				 </table>
 		 	</div>		    
 		</div>
     </form>
+
+    <form class="form-inline" style="padding: 10px;" id="form_normas">     
+    	<div class="panel panel-default panel-body">
+        	<div class="container">
+		  		<table class="table table-striped">
+				    <thead>
+				    	<tr>
+				        	<td>Tipo</td>
+					        <td>Número</td>
+					        <td>Data de Publicação</td>
+					        <td>Resumo</td>
+					    </tr>
+					</thead>
+				    <tbody>
+						<tr ng-repeat='norma in normas'>
+					        <td class="col-md-1">{{norma.tipoDeNorma.descricao}}</td>
+					   		<td class="col-md-1"><a href="">{{norma.numero}}</a></td>
+				     		<td class="col-md-1">{{norma.dataPublicacao}}</td>
+			        		<td class="col-md-12">{{norma.resumo}}</td>
+				      	</tr>
+				    </tbody>
+				 </table>
+		 	</div>		    
+		</div>
+    </form>
+
+
 </div>

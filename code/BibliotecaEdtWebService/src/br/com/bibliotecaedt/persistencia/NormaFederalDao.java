@@ -231,25 +231,34 @@ class NormaFederalDao {
     /**
      * Busca normas federais
      * 
-     * @param tipo
+     * @param tipoDeNormaEnum
+     *            lei ou decreto
      * @param numero
+     *            identicador da norma
      * @param inicio
+     *            determina o indice inicial de pesquisa
      * @param limite
+     *            determina o limite de retorno
      * @return
      */
-    public List<Norma> buscar(final Integer tipo, final String numero,
-	    final Integer limite, final Integer inicio) {
+    public List<Norma> buscar(final TipoDeNormaEnum tipoDeNormaEnum,
+	    final String numero, final Integer limite, final Integer inicio) {
 	final Connection connection = Conexao.getConexao();
 	final List<Norma> normas = new ArrayList<Norma>();
 	try {
-	    String sql = "select * from norma, esfera_federal %s where norma.fk_id_esfera = esfera_federal.id_esfera %s %s";
+	    String sql = "select norma.id_norma, norma.numero, norma.ano, "
+		    + "norma.data_publicacao, norma.resumo, norma.descricao, "
+		    + "tipo.id_tipo, tipo.descricao "
+		    + "from norma, tipo, esfera_federal %s "
+		    + "where norma.fk_id_esfera = esfera_federal.id_esfera "
+		    + "and norma.fk_id_tipo = tipo.id_tipo %s %s";
 
 	    String tableTipo = "";
 	    String filtroTipo = "";
-	    if (tipo != null) {
+	    if (tipoDeNormaEnum != null) {
 		tableTipo = ", tipo";
-		filtroTipo = " and norma.fk_id_tipo = tipo.id_tipo and norma.fk_id_tipo = "
-			+ tipo;
+		filtroTipo = " and tipo.descricao = '"
+			+ tipoDeNormaEnum.getNome() + "'";
 	    }
 
 	    String filtroNumero = "";
@@ -271,6 +280,9 @@ class NormaFederalDao {
 		norma.setDataPublicacao(resultSet.getString(4));
 		norma.setResumo(resultSet.getString(5));
 		norma.setDescricao(resultSet.getString(6));
+		final TipoDeNorma tipoDeNorma = new TipoDeNorma(
+			resultSet.getInt(7), resultSet.getString(8));
+		norma.setTipoDeNorma(tipoDeNorma);
 		normas.add(norma);
 	    }
 	} catch (final SQLException exception) {
@@ -293,11 +305,13 @@ class NormaFederalDao {
     }
 
     /**
-     * @param tipo
+     * Busca o quantidade de total de norma para determinado filtros
+     * 
+     * @param tipoDeNorma
      * @param numero
      * @return
      */
-    public int total(final Integer tipo, final String numero) {
+    public int total(final TipoDeNormaEnum tipoDeNorma, final String numero) {
 	final Connection connection = Conexao.getConexao();
 	int count = 0;
 	try {
@@ -305,10 +319,10 @@ class NormaFederalDao {
 
 	    String tableTipo = "";
 	    String filtroTipo = "";
-	    if (tipo != null) {
+	    if (tipoDeNorma != null) {
 		tableTipo = ", tipo";
-		filtroTipo = " and norma.fk_id_tipo = tipo.id_tipo and norma.fk_id_tipo = "
-			+ tipo;
+		filtroTipo = " and norma.fk_id_tipo = tipo.id_tipo and tipo.descricao like'"
+			+ tipoDeNorma.getNome() + "'";
 	    }
 
 	    String filtroNumero = "";
@@ -321,7 +335,7 @@ class NormaFederalDao {
 	    final PreparedStatement preparedStatement = connection
 		    .prepareStatement(sql);
 	    final ResultSet resultSet = preparedStatement.executeQuery();
-	    if (resultSet.next()){
+	    if (resultSet.next()) {
 		count = resultSet.getInt(1);
 	    }
 	} catch (final SQLException exception) {
@@ -343,13 +357,15 @@ class NormaFederalDao {
     }
 
     /**
+     * Buscar todos os anos que possuem normas cadastradas
+     * 
      * @return
      */
     public List<Norma> buscarAnos() {
 	final Connection connection = Conexao.getConexao();
 	final List<Norma> normas = new ArrayList<Norma>();
 	try {
-	    String sql = "select distinct norma.ano from norma, esfera_federal where norma.fk_id_esfera = esfera_federal.id_esfera";
+	    final String sql = "select distinct norma.ano from norma, esfera_federal where norma.fk_id_esfera = esfera_federal.id_esfera";
 
 	    final PreparedStatement preparedStatement = connection
 		    .prepareStatement(sql);
@@ -375,6 +391,57 @@ class NormaFederalDao {
 	    }
 	}
 
+	return normas;
+    }
+
+    /**
+     * Busca normas de um ano específico
+     * 
+     * @param ano
+     * @return
+     */
+    public List<Norma> buscarPorAno(final String ano) {
+	final Connection connection = Conexao.getConexao();
+	final List<Norma> normas = new ArrayList<Norma>();
+	try {
+	    final String sql = "select norma.id_norma, norma.numero, norma.ano, "
+		    + "norma.data_publicacao, norma.resumo, norma.descricao, "
+		    + "tipo.id_tipo, tipo.descricao "
+		    + "from norma, tipo, esfera_federal "
+		    + "where norma.fk_id_esfera = esfera_federal.id_esfera "
+		    + "and norma.fk_id_tipo = tipo.id_tipo "
+		    + "and norma.ano like '" + ano + "'";
+
+	    final PreparedStatement preparedStatement = connection
+		    .prepareStatement(sql);
+	    final ResultSet resultSet = preparedStatement.executeQuery();
+	    while (resultSet.next()) {
+		final Norma norma = new Norma();
+		norma.setIdentificador(resultSet.getInt(1));
+		norma.setNumero(resultSet.getString(2));
+		norma.setAno(resultSet.getString(3));
+		norma.setDataPublicacao(resultSet.getString(4));
+		norma.setResumo(resultSet.getString(5));
+		norma.setDescricao(resultSet.getString(6));
+		final TipoDeNorma tipoDeNorma = new TipoDeNorma(
+			resultSet.getInt(7), resultSet.getString(8));
+		norma.setTipoDeNorma(tipoDeNorma);
+		normas.add(norma);
+	    }
+	} catch (final SQLException exception) {
+	    System.out.println("Buscar Normas Federais: Erro => "
+		    + exception.getMessage());
+	} finally {
+	    try {
+		connection.close();
+		Conexao.fechaConexao();
+	    } catch (final SQLException e) {
+		System.out
+			.println("Buscar Normas Federais: Erro ao fechar conexão => "
+				+ e.getMessage());
+		e.printStackTrace();
+	    }
+	}
 	return normas;
     }
 }

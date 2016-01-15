@@ -3,13 +3,13 @@ package br.com.bibliotecaedt.modelo;
 public class Norma {
 
     private Integer identificador;
-    private TipoDeNorma tipoDeNorma;
-    private Esfera esfera;
     private String ano;
     private String numero;
     private String dataPublicacao;
     private String resumo;
     private String descricao;
+    private TipoDeNorma tipoDeNorma;
+    private Esfera esfera;
 
     public Integer getIdentificador() {
 	return identificador;

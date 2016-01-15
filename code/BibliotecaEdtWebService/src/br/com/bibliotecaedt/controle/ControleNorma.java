@@ -55,34 +55,53 @@ public class ControleNorma {
     }
 
     /**
+     * Busca norma federais
+     * 
      * @param federal
-     * @param tipo
+     * @param tipoDeNorma
      * @param numero
      * @param inicio
      * @param limite
      */
     public List<Norma> buscarNormas(final EsferaEnum esferaEnum,
-	    final Integer tipo, final String numero, Integer limite,
-	    Integer inicio) {
-	return normaDao.buscarNormas(esferaEnum, tipo, numero, limite, inicio);
+	    final TipoDeNormaEnum tipoDeNorma, final String numero, final Integer limite,
+	    final Integer inicio) {
+	return normaDao.buscarNormas(esferaEnum, tipoDeNorma, numero, limite, inicio);
     }
 
     /**
+     * Busca quantidade total de normas
+     * 
      * @param federal
-     * @param tipo
+     * @param tipoDeNorma
      * @param numero
      * @return
      */
-    public int total(EsferaEnum esferaEnum, Integer tipo, String numero) {
-	return normaDao.total(esferaEnum, tipo, numero);
+    public int total(final EsferaEnum esferaEnum, final TipoDeNormaEnum tipoDeNorma,
+	    final String numero) {
+	return normaDao.total(esferaEnum, tipoDeNorma, numero);
     }
 
     /**
+     * Busca todos os anos que possuem normas cadastradas
+     * 
      * @param federal
      * @return
      */
-    public List<Norma> buscarAnos(EsferaEnum esferaEnum) {
+    public List<Norma> buscarAnos(final EsferaEnum esferaEnum) {
 	return normaDao.buscarAnos(esferaEnum);
+    }
+
+    /**
+     * Busca normas de um determinado ano
+     * 
+     * @param federal
+     * @param ano
+     * @return
+     */
+    public List<Norma> buscarPorAno(final EsferaEnum esferaEnum,
+	    final String ano) {
+	return normaDao.buscarPorAno(esferaEnum, ano);
     }
 
 }

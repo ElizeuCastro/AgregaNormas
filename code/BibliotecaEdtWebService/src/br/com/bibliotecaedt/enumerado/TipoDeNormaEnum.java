@@ -31,4 +31,14 @@ public enum TipoDeNormaEnum {
 	return nome;
     }
 
+    public static TipoDeNormaEnum getTipoPorId(final Integer id) {
+	if (id != null) {
+	    for (TipoDeNormaEnum tipoDeNormaEnum : values()) {
+		if (tipoDeNormaEnum.getId() == id) {
+		    return tipoDeNormaEnum;
+		}
+	    }
+	}
+	return null;
+    }
 }
