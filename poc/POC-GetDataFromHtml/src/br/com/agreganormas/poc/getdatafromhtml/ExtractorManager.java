@@ -1,4 +1,5 @@
 package br.com.agreganormas.poc.getdatafromhtml;
+
 import java.util.ArrayList;
 import java.util.List;
 

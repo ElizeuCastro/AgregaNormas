@@ -1,0 +1,117 @@
+
+
+	<!-- Filtros de Pesquisa -->
+	<form class="form-inline" style="padding: 10px;">     
+    	<div class="panel panel-default panel-body">
+        	<fieldset>
+          	<legend>Filtros de Pesquisa</legend>
+
+			<div class="btn-group btn-group-justified" role="group" >
+				<label class="checkbox-inline"><input type="checkbox" value="" 
+					ng-true-value="1" ng-false-value="-1" ng-model="tipo">Lei</label>
+				<label class="checkbox-inline"><input type="checkbox" value="" 
+					ng-true-value="2" ng-false-value="-1" ng-model="tipo">Decreto</label>
+			</div>
+
+          	<div class="form-group">
+            	<input type="text" class="form-control" id="autenticar_login" placeholder="Numero da norma" ng-model="numero">
+          	</div>
+
+         	<button type="submit" class="btn btn-primary" ng-click="buscar()">Buscar</button>
+
+         	<div ng-show="mostrarEstados" ng-init="buscarEstados()">
+				<div class="btn-group btn-group-justified" role="group">
+	            	<label>Estado</label>
+	          	</div>
+
+	        	<div class="btn-group btn-group-justified" role="group" >
+			     	<select class="form-control" 
+			     	ng-model="estado" ng-options="estado.descricao for estado in estados">
+			      	</select>
+			  	</div>
+		    </div>
+        </fieldset>  
+      </div>
+    </form>
+
+	<!-- Lista de Anos -->
+    <form class="form-inline" style="padding: 10px;" ng-show="mostrarAnos">     
+    	<div class="panel panel-default panel-body">
+        	<div class="container">
+		  		<table class="table table-striped">
+				    <tbody>
+				      <tr ng-repeat='ano in anos'>
+				        <td ng-repeat='coluna in ano.colunas'>
+				        	<a href="" 
+				        	ng-click="buscarNormasPorAno(coluna)">{{coluna}}</a>
+				        </td>
+				      </tr>
+				    </tbody>
+				 </table>
+		 	</div>		    
+		</div>
+    </form>
+
+	<!-- Lista de Normas -->
+    <form class="form-inline" style="padding: 10px;" ng-show="mostrarNormas">     
+    	<div class="panel panel-default panel-body">
+	    	<div class="container" >
+	    		<!-- Controle de navegação -->
+	    		<button type="button" class="btn btn-info" 
+						ng-click="mostrarAnos = true; mostrarNormas = false; mostrarBack = false" 
+				 		ng-show="mostrarBack">
+				  			<span class="glyphicon glyphicon-chevron-left"></span> Voltar para lista de anos
+				</button>
+				<ul class="pagination" ng-show="mostrarPaginacao">
+					<li>
+						<a href="" ng-click="paginaAnterior()">&laquo;</a>
+					</li>
+				   	<li  ng-repeat="subPagina in paginas[index].subPaginas">
+				   		<a href="" ng-click="buscarPorPaginacao(subPagina.inicio)">{{subPagina.numero}}</a>
+				   	</li>
+				   	<li>
+				   		<a href="" ng-click="proximaPagina()">&raquo;</a>
+				   	</li>
+				</ul>
+				
+				<table class="table table-striped">
+				    <thead>
+				    	<tr>
+							<td>Índice</td>
+				        	<td>Tipo</td>
+					        <td>Número</td>
+					        <td>Data de Publicação</td>
+							<td>Resumo</td>
+					    </tr>
+					</thead>
+				    <tbody>
+				    	<tr ng-repeat='norma in normas'>
+							<td class="col-md-1">{{normas.indexOf(norma) + 1}}</td>
+					        <td class="col-md-1">{{norma.tipoDeNorma.descricao}}</td>
+					   		<td class="col-md-1"><a  href="" ng-click="abrirDetalhe(norma.descricao)">{{norma.numero}}</a></td>
+						    <td class="col-md-2">{{norma.dataPublicacao}}</td>
+					   		<td class="col-md-12">{{norma.resumo}}</td>
+				      	</tr>
+					</tbody>
+				</table>
+
+				<!-- Controle de navegação -->
+				<button type="button" class="btn btn-info" 
+						ng-click="mostrarAnos = true; mostrarNormas = false; mostrarBack = false" 
+				 		ng-show="mostrarBack">
+				  			<span class="glyphicon glyphicon-chevron-left"></span> Voltar para lista de anos
+				</button>
+				<ul class="pagination" ng-show="mostrarPaginacao">
+					<li>
+						<a href="" ng-click="paginaAnterior()">&laquo;</a>
+					</li>
+				   	<li  ng-repeat="subPagina in paginas[index].subPaginas">
+				   		<a href="" ng-click="buscarPorPaginacao(subPagina.inicio)">{{subPagina.numero}}</a>
+				   	</li>
+				   	<li>
+				   		<a href="" ng-click="proximaPagina()">&raquo;</a>
+				   	</li>
+				</ul>
+			</div>		 		    
+		</div>
+    </form>

@@ -1,0 +1,100 @@
+
+
+
+<div class="col-md-6 pull-right ">
+
+  <div class="row">
+    <form class="form-inline margin-top-2x" style="padding: 10px;">     
+      <div class="panel panel-default panel-body">
+        <fieldset>
+          <legend>Faça seu login</legend>
+
+          <!-- Container de erro de autenticação-->
+          <div class="alert alert-danger alert-dismissible" role="alert" ng-show="autenticarErro">
+            <p><b>Algumas informações precisam ser corrigidas: </b></p>
+            <p ng-show="autenticarVazio != ''">&nbsp;&bull; {{autenticarVazio}}</p>
+            <p ng-show="usuarioInvalido != ''">&nbsp;&bull; {{usuarioInvalido}}</p>
+          </div>
+         
+          <div class="form-group">
+            <input type="text" class="form-control" id="autenticar_login" placeholder="Apelido" ng-model="autLogin">
+          </div>
+          <div class="form-group">
+            <input type="password" class="form-control" id="autenticar_senha" placeholder="Senha" ng-model="autSenha">
+          </div>
+          <button type="submit" class="btn btn-primary" ng-click="autenticar()">Entrar</button>
+        </fieldset>  
+      </div>
+    </form>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <form class="form-horizontal">
+        <fieldset>
+          <legend>ou Cadastre-se</legend>
+          <!-- Container de erro de cadastro-->
+          <div class="alert alert-danger alert-dismissible" role="alert" ng-show="mostrarErro">
+            <p><b>Algumas informações precisam ser corrigidas: </b></p>
+            <p ng-show="campoVazio != ''">&nbsp;&bull; {{campoVazio}}</p>
+            <p ng-show="emailInvalido != ''">&nbsp;&bull; {{emailInvalido}}</p>
+            <p ng-show="loginInvalido != ''">&nbsp;&bull; {{loginInvalido}}</p>
+            <p ng-show="senhaInvalida != ''">&nbsp;&bull; {{senhaInvalida}}</p>
+            <p ng-show="confirmarSenhaInvalida != ''">&nbsp;&bull; {{confirmarSenhaInvalida}}</p>
+          </div>
+
+          <!-- Nome input-->
+          <div class="form-group">
+            <label class="col-md-4 control-label" for="nome">Nome</label>  
+            <div class="col-md-6">
+              <input id="nome" name="nome" ng-model="nome" type="text" placeholder="" class="form-control input-md">
+            </div>
+          </div>
+
+          <!-- Email input-->
+          <div class="form-group">
+            <label class="col-md-4 control-label" for="email">E-mail</label>  
+            <div class="col-md-6">
+              <input id="email" name="email" ng-model="email" type="text" placeholder="" 
+                    class="form-control input-md">
+            </div>
+          </div>
+
+          <!-- Apelido input-->
+          <div class="form-group">
+            <label class="col-md-4 control-label" for="login">Apelido</label>  
+            <div class="col-md-6">
+              <input id="login" name="login" ng-model="login" type="text" placeholder="" class="form-control input-md">
+              <span class="help-block">6 - 20 caracteres</span>  
+            </div>
+          </div>
+
+          <!-- Password input-->
+          <div class="form-group">
+            <label class="col-md-4 control-label" for="senha">Senha</label>
+            <div class="col-md-6">
+                <input id="senha" name="senha" ng-model="senha" type="password" placeholder="" class="form-control input-md">
+                <span class="help-block">6 - 20 caracteres</span>
+            </div>
+          </div>
+
+          <!-- Password input-->
+          <div class="form-group">
+            <label class="col-md-4 control-label" for="confirmar_senha">Confirmar Senha</label>
+            <div class="col-md-6">
+                <input id="confirmar_senha" name="confirmar_senha" ng-model="confirmaSenha" type="password" placeholder="" class="form-control input-md">
+            </div>
+          </div>
+
+          <!-- Button -->
+          <div class="form-group">
+            <label class="col-md-4 control-label" for="btn_salvar"></label>
+            <div class="col-md-4">
+              <button id="btn_salvar" name="btn_salvar" class="btn btn-primary" ng-click="registrar()">{{btnRegistrar}}</button>
+            </div>
+          </div>        
+        </fieldset>
+      </form>
+    </div>
+  </div>
+</div>

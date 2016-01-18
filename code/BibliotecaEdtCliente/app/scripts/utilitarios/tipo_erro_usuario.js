@@ -1,0 +1,5 @@
+var ErroDeUsuario = {
+	LOGIN_DUPLICADO: 1,
+	EMAIL_DUPLICADO: 2,
+	LOGIN_SENHA_INVALIDO: 3
+}
