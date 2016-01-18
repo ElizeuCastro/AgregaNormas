@@ -249,14 +249,12 @@ class NormaFederalDao {
 	    String sql = "select norma.id_norma, norma.numero, norma.ano, "
 		    + "norma.data_publicacao, norma.resumo, norma.descricao, "
 		    + "tipo.id_tipo, tipo.descricao "
-		    + "from norma, tipo, esfera_federal %s "
+		    + "from norma, tipo, esfera_federal "
 		    + "where norma.fk_id_esfera = esfera_federal.id_esfera "
 		    + "and norma.fk_id_tipo = tipo.id_tipo %s %s";
 
-	    String tableTipo = "";
 	    String filtroTipo = "";
 	    if (tipoDeNormaEnum != null) {
-		tableTipo = ", tipo";
 		filtroTipo = " and tipo.descricao = '"
 			+ tipoDeNormaEnum.getNome() + "'";
 	    }
@@ -266,7 +264,7 @@ class NormaFederalDao {
 		filtroNumero = " and norma.numero like " + "'%" + numero + "%'";
 	    }
 
-	    sql = String.format(sql, tableTipo, filtroTipo, filtroNumero);
+	    sql = String.format(sql, filtroTipo, filtroNumero);
 	    sql += " LIMIT " + limite + " OFFSET " + inicio;
 
 	    final PreparedStatement preparedStatement = connection

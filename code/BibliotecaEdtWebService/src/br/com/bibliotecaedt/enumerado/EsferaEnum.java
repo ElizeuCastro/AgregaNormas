@@ -28,9 +28,19 @@ public enum EsferaEnum {
     public String getNome() {
 	return nome;
     }
-    
+
     public int getTipo() {
 	return tipo;
     }
 
+    public static EsferaEnum getEsferaPorId(Integer id) {
+	if (id != null) {
+	    for (EsferaEnum esferaEnum : values()) {
+		if (esferaEnum.getTipo() == id) {
+		    return esferaEnum;
+		}
+	    }
+	}
+	return null;
+    }
 }

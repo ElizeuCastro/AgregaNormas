@@ -18,7 +18,8 @@ var app = angular
     'ngTouch'
   ]);
 
-  app.config(function ($routeProvider, $locationProvider) {
+  app.config(function ($routeProvider, $httpProvider, $locationProvider) {
+    
     $routeProvider
       .when('/', {
         
@@ -37,12 +38,16 @@ var app = angular
       }).when('/normas/:tipoEsfera', {
         
         templateUrl: 'views/normas.html',
-        controller: 'NormasCtrl'
+        controller: 'NormasCtrl',
+
+      }).when('/detalhe', {
+        
+        templateUrl: 'views/norma_detalhe.html',
+        controller: 'NormasDetalheCtrl'
 
       }).otherwise({
         
-        redirectTo: '/'
+        redirectTo: 'views/404.html'
 
       });
-      
-  });
+});
