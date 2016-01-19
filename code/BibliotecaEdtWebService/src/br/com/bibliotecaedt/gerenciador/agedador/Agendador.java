@@ -12,33 +12,33 @@ import org.quartz.impl.StdSchedulerFactory;
 
 public final class Agendador {
 
-	private static final int INTERVALO = 5;
-	private static Agendador instancia;
+    private static final int INTERVALO = 5;
+    private static Agendador instancia;
 
-	public static Agendador getInstancia() {
-		if (instancia == null) {
-			instancia = new Agendador();
-		}
-		return instancia;
+    public static Agendador getInstancia() {
+	if (instancia == null) {
+	    instancia = new Agendador();
 	}
+	return instancia;
+    }
 
-	public void inicializa() {
-		try {
-			JobDetail job = JobBuilder.newJob(BuscarNormas.class)
-					.withIdentity("buscaNormas").build();
-			Trigger trigger = TriggerBuilder
-					.newTrigger()
-					.withSchedule(
-							SimpleScheduleBuilder.simpleSchedule()
-									.withIntervalInHours(INTERVALO)
-									.repeatForever()).build();
-			SchedulerFactory schFactory = new StdSchedulerFactory();
-			Scheduler sch = schFactory.getScheduler();
-			sch.start();
-			sch.scheduleJob(job, trigger);
+    public void inicializa() {
+	try {
+	    JobDetail job = JobBuilder.newJob(BuscarNormas.class)
+		    .withIdentity("buscaNormas").build();
+	    Trigger trigger = TriggerBuilder
+		    .newTrigger()
+		    .withSchedule(
+			    SimpleScheduleBuilder.simpleSchedule()
+				    .withIntervalInHours(INTERVALO)
+				    .repeatForever()).build();
+	    SchedulerFactory schFactory = new StdSchedulerFactory();
+	    Scheduler sch = schFactory.getScheduler();
+	    sch.start();
+	    sch.scheduleJob(job, trigger);
 
-		} catch (SchedulerException e) {
-			System.out.println(e.getMessage());
-		}
+	} catch (SchedulerException e) {
+	    System.out.println(e.getMessage());
 	}
+    }
 }
