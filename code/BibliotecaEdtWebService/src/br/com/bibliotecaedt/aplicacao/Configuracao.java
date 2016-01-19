@@ -18,14 +18,14 @@ import br.com.bibliotecaedt.gerenciador.agedador.Agendador;
 
 public class Configuracao implements ServletContextListener {
 
-	@Override
-	public void contextInitialized(ServletContextEvent event) {
-		Agendador.getInstancia().inicializa();
-	}
+    @Override
+    public void contextInitialized(ServletContextEvent event) {
+	Agendador.getInstancia().inicializa();
+    }
 
-	@Override
-	public void contextDestroyed(ServletContextEvent event) {
+    @Override
+    public void contextDestroyed(ServletContextEvent event) {
 
-	}
+    }
 
 }
