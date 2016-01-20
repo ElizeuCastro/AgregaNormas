@@ -10,14 +10,15 @@
           <legend>Faça seu login</legend>
 
           <!-- Container de erro de autenticação-->
-          <div class="alert alert-danger alert-dismissible" role="alert" ng-show="autenticarErro">
+          <div class="alert alert-danger fade in" ng-show="autenticarErro">
+            <a href="" class="close" ng-click="autenticarErro = false">&times;</a>
             <p><b>Algumas informações precisam ser corrigidas: </b></p>
             <p ng-show="autenticarVazio != ''">&nbsp;&bull; {{autenticarVazio}}</p>
             <p ng-show="usuarioInvalido != ''">&nbsp;&bull; {{usuarioInvalido}}</p>
           </div>
          
           <div class="form-group">
-            <input type="text" class="form-control" id="autenticar_login" placeholder="Apelido" ng-model="autLogin">
+            <input type="text" class="form-control" id="autenticar_login" placeholder="Login" ng-model="autLogin">
           </div>
           <div class="form-group">
             <input type="password" class="form-control" id="autenticar_senha" placeholder="Senha" ng-model="autSenha">
@@ -34,7 +35,8 @@
         <fieldset>
           <legend>ou Cadastre-se</legend>
           <!-- Container de erro de cadastro-->
-          <div class="alert alert-danger alert-dismissible" role="alert" ng-show="mostrarErro">
+          <div class="alert alert-danger alert-dismissible" ng-show="mostrarErro">
+            <a href="" class="close" ng-click="mostrarErro = false">&times;</a>
             <p><b>Algumas informações precisam ser corrigidas: </b></p>
             <p ng-show="campoVazio != ''">&nbsp;&bull; {{campoVazio}}</p>
             <p ng-show="emailInvalido != ''">&nbsp;&bull; {{emailInvalido}}</p>
@@ -62,7 +64,7 @@
 
           <!-- Apelido input-->
           <div class="form-group">
-            <label class="col-md-4 control-label" for="login">Apelido</label>  
+            <label class="col-md-4 control-label" for="login">Login</label>  
             <div class="col-md-6">
               <input id="login" name="login" ng-model="login" type="text" placeholder="" class="form-control input-md">
               <span class="help-block">6 - 20 caracteres</span>  

@@ -1,7 +1,6 @@
 
-
 	<!-- Filtros de Pesquisa -->
-	<form class="form-inline" style="padding: 10px;">     
+	<div class="form-inline" style="padding: 10px;">     
     	<div class="panel panel-default panel-body">
         	<fieldset>
           	<legend>Filtros de Pesquisa</legend>
@@ -17,7 +16,7 @@
             	<input type="text" class="form-control" id="autenticar_login" placeholder="Numero da norma" ng-model="numero">
           	</div>
 
-         	<button type="submit" class="btn btn-primary" ng-click="buscar()">Buscar</button>
+         	<button type="submit" class="btn btn-primary" ng-click="buscar()">Consultar</button>
 
          	<div ng-show="mostrarEstados" ng-init="buscarEstados()">
 				<div class="btn-group btn-group-justified" role="group">
@@ -30,12 +29,24 @@
 			      	</select>
 			  	</div>
 		    </div>
+
+		    <img src="images/progress.gif" ng-show="loading" style="position:absolute; 
+		    									  top:12%; 
+		    									  right:15%; 
+		    									  margin-top:-12px; 
+		    									  margin-right:-15px;">
+
+		     <!-- Container de erro -->
+        	<div class="alert alert-danger fade in" style="margin-top: 10px;" ng-show="showErro">
+            	<a href="" class="close" ng-click="showErro = false">&times;</a>
+            	<p class="text-center">{{messagemDeErro}}</p>
+          	</div>
         </fieldset>  
       </div>
-    </form>
+    </div>
 
 	<!-- Lista de Anos -->
-    <form class="form-inline" style="padding: 10px;" ng-show="mostrarAnos">     
+    <div class="form-inline" style="padding: 10px;" ng-show="mostrarAnos">     
     	<div class="panel panel-default panel-body">
         	<div class="container">
 		  		<table class="table table-striped">
@@ -50,10 +61,10 @@
 				 </table>
 		 	</div>		    
 		</div>
-    </form>
+    </div>
 
 	<!-- Lista de Normas -->
-    <form class="form-inline" style="padding: 10px;" ng-show="mostrarNormas">     
+    <div class="form-inline" style="padding: 10px;" ng-show="mostrarNormas">     
     	<div class="panel panel-default panel-body">
 	    	<div class="container" >
 	    		<!-- Controle de navegação -->
@@ -114,4 +125,4 @@
 				</ul>
 			</div>		 		    
 		</div>
-    </form>
+    </div>
