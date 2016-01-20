@@ -2,20 +2,31 @@
 
 app.controller('NormasCtrl', function ($scope, $rootScope, $location, $routeParams, ServicoNormas) {
 
+    var NORMA_EMPTY = " Não foram encontradas normas para os filtros indicados ",
+        CHOOSE_STATE = "Escolha um estado";
+
     $scope.mostrarBack = false;
     $scope.mostrarAnos = false;
     $scope.mostrarNormas = false;
     $scope.mostrarPaginacao = false;
     $scope.mostrarEstados = $routeParams.tipoEsfera === EsferaTipo.ESTADUAL;
 
+    $scope.showErro = false;
+    $scope.messagemDeErro = NORMA_EMPTY;
+
     $scope.tipo = -1;
     $scope.numero = "";
     $scope.index = 0;
+
+    $scope.loading = false;
 
     var tipo = -1;
 
     $scope.buscar = function(){
        
+        $scope.messagemDeErro = NORMA_EMPTY;
+        $scope.showErro = false;
+
         tipo = $scope.tipo;
         $scope.index = 0;
 
@@ -25,30 +36,41 @@ app.controller('NormasCtrl', function ($scope, $rootScope, $location, $routePara
             buscarNormasEstaduais();        
         } else if ($routeParams.tipoEsfera === EsferaTipo.MUNICIPAL){
 
-        } else{
+        } else {
             console.log("Norma inválida");
         }
     };
 
     function buscarNormasFederais (){
         $scope.anos = [];
+        $scope.mostrarBack = false;
+        $scope.loading = true;
+
         if ($scope.tipo === -1 && $scope.numero === ""){
           
-            $scope.mostrarBack = false;
             $scope.mostrarAnos = true;
             $scope.mostrarNormas = false;
             $scope.mostrarPaginacao = false;
 
             ServicoNormas.getNormasFederaisAnos(function(data, status){
                 if (status === HttpStatus.OK){
-                    if (data.length > 0){
+                    if (data !== undefined && data.length > 0){
                         preparaTabelasDeAnos(data);
+                        $scope.loading = false;
                     } else{
-                        console.log("Erro");
+                        $scope.loading = false;
+                        $scope.mostrarAnos = false;
+                        $scope.showErro = true;
                     }
+                } else {
+                    $scope.loading = false;
+                    $scope.mostrarAnos = false;
+                    $scope.showErro = true;
                 }
             }, function(data, status){
-                console.log("Erro");
+                $scope.loading = false;
+                $scope.mostrarAnos = false;
+                $scope.showErro = true;
             });
 
         } else {
@@ -62,17 +84,35 @@ app.controller('NormasCtrl', function ($scope, $rootScope, $location, $routePara
                 inicio: inicio
             };
 
-            $scope.mostrarBack = false;
             $scope.mostrarAnos = false;
             $scope.mostrarNormas = true;
             $scope.mostrarPaginacao = false;
 
             ServicoNormas.getNormasFederais(data, function(data, status){
                 if (status === HttpStatus.OK){
-                    preparaNormas(data);
+                    if (data !== undefined && 
+                        data.quantidade !== undefined && 
+                        data.normas !== undefined && 
+                        data.normas.length > 0){
+
+                        preparaNormas(data);
+
+                        $scope.loading = false;
+                    
+                    } else {
+                        $scope.loading = false;
+                        $scope.mostrarNormas = false;
+                        $scope.showErro = true;
+                    }
+                } else {
+                    $scope.loading = false;
+                    $scope.mostrarNormas = false;
+                    $scope.showErro = true;    
                 }
             }, function(data, status){
-                console.log("Erro");
+                $scope.loading = false;
+                $scope.mostrarNormas = false;
+                $scope.showErro = true;
             });
 
         }
@@ -80,11 +120,16 @@ app.controller('NormasCtrl', function ($scope, $rootScope, $location, $routePara
 
     function buscarNormasEstaduais (){
         if ($scope.estado === undefined || $scope.estado.identificador < 0){
-            console.log("Erro");
+
+            $scope.messagemDeErro = CHOOSE_STATE;
+            $scope.showErro = true;
+
             return;
         }    
 
+        $scope.loading = true;
         $scope.anos = [];
+
         if ($scope.tipo === -1 && $scope.numero === ""){
 
             $scope.mostrarBack = false;
@@ -98,14 +143,23 @@ app.controller('NormasCtrl', function ($scope, $rootScope, $location, $routePara
 
             ServicoNormas.getNormasEstaduaisAnos(data, function(data, status){
                 if (status === HttpStatus.OK){
-                    if (data.length > 0){
+                    if (data !== undefined && data.length > 0){
                         preparaTabelasDeAnos(data);
+                        $scope.loading = false;
                     } else{
-                        console.log("Erro");
+                        $scope.loading = false;
+                        $scope.mostrarAnos = false;
+                        $scope.showErro = true;
                     }
+                } else {
+                    $scope.loading = false;
+                    $scope.mostrarAnos = false;
+                    $scope.showErro = true;
                 }
             }, function(data, status){
-                console.log("Erro");
+                $scope.loading = false;
+                $scope.mostrarAnos = false;
+                $scope.showErro = true;
             });
 
         } else {
@@ -127,17 +181,40 @@ app.controller('NormasCtrl', function ($scope, $rootScope, $location, $routePara
 
             ServicoNormas.getNormasEstaduais(data, function(data, status){
                 if (status === HttpStatus.OK){
-                    preparaNormas(data);
+                    if (data !== undefined && 
+                        data.quantidade !== undefined && 
+                        data.normas !== undefined && 
+                        data.normas.length > 0){
+
+                        preparaNormas(data);
+
+                        $scope.loading = false;
+                    
+                    } else {
+                        $scope.loading = false;
+                        $scope.mostrarNormas = false;
+                        $scope.showErro = true;
+                    }
+                } else {
+                    $scope.loading = false;
+                    $scope.mostrarNormas = false;
+                    $scope.showErro = true;    
                 }
             }, function(data, status){
-                console.log("Erro");
+                $scope.loading = false;
+                $scope.mostrarNormas = false;
+                $scope.showErro = true;
             });
 
         }
     };
 
     $scope.buscarPorPaginacao = function(offset){
+        
+        $scope.loading = true;
+        $scope.showErro = false;
         $scope.normas = [];
+
         var data = {
             tipo: tipo,
             numero: undefined,
@@ -147,10 +224,22 @@ app.controller('NormasCtrl', function ($scope, $rootScope, $location, $routePara
 
         ServicoNormas.getNormasFederais(data, function(data, status){
             if (status === HttpStatus.OK){
-                $scope.normas = data.normas;
+                if (data !== undefined && 
+                    data.normas !== undefined &&
+                    data.normas.length > 0){
+                    $scope.normas = data.normas;
+                    $scope.loading = false;
+                } else {
+                    $scope.loading = false;
+                    $scope.showErro = true;        
+                }
+            } else {
+                $scope.loading = false;
+                $scope.showErro = true;        
             }
         }, function(data, status){
-            console.log("Erro");
+            $scope.loading = false;
+            $scope.showErro = true;
         });
     };
 
@@ -189,9 +278,12 @@ app.controller('NormasCtrl', function ($scope, $rootScope, $location, $routePara
     };
 
     $scope.buscarNormasPorAno = function(ano){
+
+        $scope.loading = true;
+        $scope.showErro = false;
         $scope.normas = [];
         $scope.mostrarPaginacao = false;
-        $scope.mostrarBack = true;
+        $scope.mostrarBack = false;
         $scope.mostrarAnos = false;
         $scope.mostrarNormas = true;
 
@@ -203,14 +295,23 @@ app.controller('NormasCtrl', function ($scope, $rootScope, $location, $routePara
 
             ServicoNormas.getNormasFederaisPorAno(data, function(data, status){
                 if (status == HttpStatus.OK){
-                    if (data.length > 0){
+                    if (data !==  undefined && data.length > 0){
                         $scope.normas = data;
+                        $scope.mostrarBack = true;
+                        $scope.loading = false;
                     } else{
-                        console.log("Erro");
+                        $scope.mostrarBack = false;
+                        $scope.showErro = true;
+                        $scope.loading = false;
                     }
+                } else {
+                    $scope.mostrarBack = false;
+                    $scope.showErro = true;
+                    $scope.loading = false;
                 }
             }, function(data, status){
-                console.log("Erro");
+                $scope.mostrarBack = false;
+                $scope.showErro = true;
             });
 
         } else if ($routeParams.tipoEsfera === EsferaTipo.ESTADUAL){
@@ -222,14 +323,24 @@ app.controller('NormasCtrl', function ($scope, $rootScope, $location, $routePara
             
             ServicoNormas.getNormasEstaduaisPorAno(data, function(data, status){
                 if (status == HttpStatus.OK){
-                    if (data.length > 0){
+                    if (data !== undefined && data.length > 0){
                         $scope.normas = data;
+                        $scope.mostrarBack = true;
+                        $scope.loading = false;
                     } else{
-                        console.log("Erro");
+                        $scope.mostrarBack = false;
+                        $scope.showErro = true;
+                        $scope.loading = false;
                     }
+                } else {
+                    $scope.loading = false;
+                    $scope.mostrarBack = false;
+                    $scope.showErro = true;
                 }
             }, function(data, status){
-                console.log("Erro");
+                $scope.loading = false;
+                $scope.mostrarBack = false;
+                $scope.showErro = true;
             });
 
         } else if ($routeParams.tipoEsfera === EsferaTipo.MUNICIPAL){
@@ -279,19 +390,27 @@ app.controller('NormasCtrl', function ($scope, $rootScope, $location, $routePara
     };
 
     $scope.buscarEstados = function(){
+        
         if ($routeParams.tipoEsfera === EsferaTipo.ESTADUAL){
 
+            $scope.loading = true;
+            $scope.showErro = false;
             $scope.estados = [];
             
             ServicoNormas.getEstados(function(data, status){
                 if (status == HttpStatus.OK){
                     if (data.length > 0){
                         $scope.estados = data;
+                        $scope.loading = false;
                     } else{
+                        $scope.loading = false;
                         console.log("Erro");
                     }
+                } else {
+                    $scope.loading = false;
                 }
             }, function(data, status){
+                $scope.loading = false;
                 console.log("Erro");
             });
         }

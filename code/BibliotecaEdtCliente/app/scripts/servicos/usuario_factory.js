@@ -2,8 +2,8 @@
 
 app.factory('ServicoUsuario', function($http) {
 
-  var URL_REGISTRAR = 'http://localhost:8080/BibliotecaEdtWebService/usuario/registrar';
-  var URL_AUTENTICAR= 'http://localhost:8080/BibliotecaEdtWebService/usuario/autenticar';
+  var URL_REGISTRAR = Host.PATH + '/usuario/registrar';
+  var URL_AUTENTICAR= Host.PATH + '/usuario/autenticar';
   var config = {
     headers : {
       'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'

@@ -5,7 +5,6 @@ app.controller('MainCtrl', function ($scope, $location, ServicoUsuario) {
     $scope.btnRegistrar = "Registrar";
     $scope.btnEntrar = "Entrar";
     $scope.confirmaSenha = "";
-  
 
    $scope.registrar = function () {           
 
@@ -57,7 +56,7 @@ app.controller('MainCtrl', function ($scope, $location, ServicoUsuario) {
 
         if (!eApelidoValido($scope.login)){
             temErro = true;
-            $scope.loginInvalido = "Apelido deve conter entre  6 - 20 caracteres";     
+            $scope.loginInvalido = "Login deve conter entre  6 - 20 caracteres";     
         };
 
         if (!eSenhaValida($scope.senha)){
@@ -122,24 +121,28 @@ app.controller('MainCtrl', function ($scope, $location, ServicoUsuario) {
 
     function eEmailValido(email) {
         var regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        return regex.test(email);
+        return email != undefined && regex.test(email);
     };
 
     function temCampoVazio(valores) {
         for( var i = 0; i < valores.length; i++ ) {
-            if (valores[i] == undefined || valores[i] == ''){
+            if (valores[i] == undefined || myTrim(valores[i]) == ''){
                 return true;
             }
         }
         return false;
     };
 
+    function myTrim(x) {
+        return x.replace(/^\s+|\s+$/gm,'');
+    };
+
     function eSenhaValida(senha) {
-        return senha != undefined && senha.length >= 6;
+        return senha != undefined && senha.length >= 6 && senha.length <= 20;
     };
 
     function eApelidoValido(login) {
-        return login != undefined && login.length >= 6;
+        return login != undefined && login.length >= 6 && login.length <= 20;
     };
 
     function confirmarSenha(login, confirmaSenha) {
