@@ -33,14 +33,19 @@ var app = angular
 
       }).when('/esferas', {
         
-        templateUrl: 'views/esferas.html'
+        templateUrl: 'views/esferas.html',
+        controller: function($scope, LocalStorage){
+            $scope.clearStorage = function(){
+              LocalStorage.clear();  
+            }
+        }
 
-      }).when('/normas/:tipoEsfera', {
+      }).when('/esfera/:tipoEsfera/normas', {
         
         templateUrl: 'views/normas.html',
         controller: 'NormasCtrl',
 
-      }).when('/detalhe', {
+      }).when('/esfera/:tipoEsfera/norma/:numero/detalhe', {
         
         templateUrl: 'views/norma_detalhe.html',
         controller: 'NormasDetalheCtrl'

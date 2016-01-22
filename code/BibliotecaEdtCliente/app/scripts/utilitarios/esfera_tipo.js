@@ -1,7 +1,7 @@
 var EsferaTipo = {
 
-	FEDERAL: "federais",
-    ESTADUAL: "estaduais",
-    MUNICIPAL: "municipais"
+	FEDERAL: "federal",
+    ESTADUAL: "estadual",
+    MUNICIPAL: "municipal"
 
 }

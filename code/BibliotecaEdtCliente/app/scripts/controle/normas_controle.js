@@ -1,26 +1,38 @@
 'use strict';
 
-app.controller('NormasCtrl', function ($scope, $rootScope, $location, $routeParams, ServicoNormas) {
+app.controller('NormasCtrl', 
+    function ($scope, $rootScope, $location, $routeParams, ServicoNormas, LocalStorage) {
 
     var NORMA_EMPTY = " Não foram encontradas normas para os filtros indicados ",
         CHOOSE_STATE = "Escolha um estado";
-
-    $scope.mostrarBack = false;
-    $scope.mostrarAnos = false;
-    $scope.mostrarNormas = false;
-    $scope.mostrarPaginacao = false;
-    $scope.mostrarEstados = $routeParams.tipoEsfera === EsferaTipo.ESTADUAL;
-
-    $scope.showErro = false;
-    $scope.messagemDeErro = NORMA_EMPTY;
-
-    $scope.tipo = -1;
-    $scope.numero = "";
-    $scope.index = 0;
-
-    $scope.loading = false;
-
     var tipo = -1;
+
+    restore();    
+
+    function restore(){
+        var result = LocalStorage.restore($scope);
+        if (result === false){
+            $scope.mostrarBack = false;
+            $scope.mostrarAnos = false;
+            $scope.mostrarNormas = false;
+            $scope.mostrarPaginacao = false;
+            $scope.mostrarEstados = $routeParams.tipoEsfera === EsferaTipo.ESTADUAL;
+
+            $scope.showErro = false;
+            $scope.messagemDeErro = NORMA_EMPTY;
+
+            $scope.tipo = -1;
+            $scope.numero = "";
+            $scope.index = 0;
+
+            $scope.loading = false;
+
+            var tipo = -1;
+
+            buscarEstados();
+        }
+    };
+
 
     $scope.buscar = function(){
        
@@ -384,12 +396,17 @@ app.controller('NormasCtrl', function ($scope, $rootScope, $location, $routePara
         }    
     };
 
-    $scope.abrirDetalhe = function(link){
-       $rootScope.url = link;
-       $location.path('/detalhe');
+    $scope.abrirDetalhe = function(norma){
+       $rootScope.url = norma.descricao;
+       //$location.path('/detalhe');
+       //esfera/:tipoEsfera/norma/:numero/detalhe
+       $location.path('/esfera/' + $routeParams.tipoEsfera + '/norma/' + norma.numero + '/detalhe/');
+
+       LocalStorage.save($scope);
+        console.log($scope);
     };
 
-    $scope.buscarEstados = function(){
+    function buscarEstados (){
         
         if ($routeParams.tipoEsfera === EsferaTipo.ESTADUAL){
 

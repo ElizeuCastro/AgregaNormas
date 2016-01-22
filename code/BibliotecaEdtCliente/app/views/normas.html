@@ -18,7 +18,7 @@
 
          	<button type="submit" class="btn btn-primary" ng-click="buscar()">Consultar</button>
 
-         	<div ng-show="mostrarEstados" ng-init="buscarEstados()">
+         	<div ng-show="mostrarEstados">
 				<div class="btn-group btn-group-justified" role="group">
 	            	<label>Estado</label>
 	          	</div>
@@ -99,7 +99,7 @@
 				    	<tr ng-repeat='norma in normas'>
 							<td class="col-md-1">{{normas.indexOf(norma) + 1}}</td>
 					        <td class="col-md-1">{{norma.tipoDeNorma.descricao}}</td>
-					   		<td class="col-md-1"><a  href="" ng-click="abrirDetalhe(norma.descricao)">{{norma.numero}}</a></td>
+					   		<td class="col-md-1"><a  href="" ng-click="abrirDetalhe(norma)">{{norma.numero}}</a></td>
 						    <td class="col-md-2">{{norma.dataPublicacao}}</td>
 					   		<td class="col-md-12">{{norma.resumo}}</td>
 				      	</tr>
