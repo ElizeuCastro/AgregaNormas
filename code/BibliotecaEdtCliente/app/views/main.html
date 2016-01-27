@@ -1,36 +1,34 @@
+<div class="col-sm-4"></div>
 
+<div class="col-sm-4">
+  <div class="row" style="padding: 10px;">
+    <div class="panel panel-default panel-body">
+      <fieldset>
+      <legend>Faça seu login</legend>
+      <form class="form-inline">     
 
-
-<div class="col-md-6 pull-right ">
-
-  <div class="row">
-    <form class="form-inline margin-top-2x" style="padding: 10px;">     
-      <div class="panel panel-default panel-body">
-        <fieldset>
-          <legend>Faça seu login</legend>
-
-          <!-- Container de erro de autenticação-->
-          <div class="alert alert-danger fade in" ng-show="autenticarErro">
-            <a href="" class="close" ng-click="autenticarErro = false">&times;</a>
+        <!-- Container de erro de autenticação-->
+        <div class="alert alert-danger fade in" ng-show="autenticarErro">
+          <a href="" class="close" ng-click="autenticarErro = false">&times;</a>
             <p><b>Algumas informações precisam ser corrigidas: </b></p>
             <p ng-show="autenticarVazio != ''">&nbsp;&bull; {{autenticarVazio}}</p>
             <p ng-show="usuarioInvalido != ''">&nbsp;&bull; {{usuarioInvalido}}</p>
-          </div>
-         
-          <div class="form-group">
-            <input type="text" class="form-control" id="autenticar_login" placeholder="Login" ng-model="autLogin">
-          </div>
-          <div class="form-group">
-            <input type="password" class="form-control" id="autenticar_senha" placeholder="Senha" ng-model="autSenha">
-          </div>
-          <button type="submit" class="btn btn-primary" ng-click="autenticar()">Entrar</button>
-        </fieldset>  
-      </div>
-    </form>
+        </div>
+               
+        <div class="form-group">
+          <input type="text" class="form-control" id="autenticar_login" placeholder="Login" ng-model="autLogin">
+        </div>
+        <div class="form-group">
+          <input type="password" class="form-control" id="autenticar_senha" placeholder="Senha" ng-model="autSenha">
+        </div>
+        </form>      
+        <button type="submit" class="btn btn-primary" style="margin-top: 10px;" ng-click="autenticar()">Entrar</button>
+      </fieldset>  
   </div>
+</div>
 
-  <div class="panel panel-default">
-    <div class="panel-body">
+  <div class="row" style="padding: 10px;">
+    <div class="panel panel-default panel-body">
       <form class="form-horizontal">
         <fieldset>
           <legend>ou Cadastre-se</legend>
@@ -100,3 +98,4 @@
     </div>
   </div>
 </div>
+<div class="col-sm-4"></div>

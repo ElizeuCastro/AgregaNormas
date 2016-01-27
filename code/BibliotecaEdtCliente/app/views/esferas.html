@@ -1,20 +1,51 @@
-<div class="row text-center col-md-6  panel-body">
+<div class="row text-center col-md-16  panel-body">
 	<fieldset>
     <legend>Buscar normas:</legend>
-	<div class="col-xs-6 col-md-4">
-	  	<a href="#/esfera/federal/normas" ng-click="clearStorage()">
-	  		<p class="col-xs-6 col-md-3">Esfera Federal</p>
-	  	</a>
+
+	<div class="col-xs-6 col-sm-4">
+	  	<a href="" ng-click="abrirEsfera('/esfera/federal/normas/')">
+	  		<div class="div-box">
+	  			Esfera Federal
+	  		</div>
+		</a>
 	</div>
-	<div class="col-xs-6 col-md-4">
-	  	<a href="#/esfera/estadual/normas" ng-click="clearStorage()">
-	  		<p class="col-xs-6 col-md-3">Esfera Estadual</p>
-	  	</a>
+		
+	<div class="col-xs-6 col-sm-4">
+	  	<a href="" ng-click="abrirEsfera('/esfera/estadual/normas/')">
+	  		<div class="div-box">
+	  			Esfera Estadual
+	  		</div>
+		</a>
 	</div>
-	<div class="col-xs-6 col-md-4">
-	  	<a href="#/esfera/municipal/normas" ng-click="clearStorage()">
-	  		<p class="col-xs-6 col-md-3">Esfera Munipal</p>
-	  	</a>
+	
+	<!-- <div class="col-xs-6 col-sm-4">
+	  	<a href="" ng-click="abrirEsfera('/esfera/municipal/normas')">
+	  		<div class="div-box">
+	  			Esfera Munipal
+	  		</div>
+		</a>
+	</div> -->
+
+	<!-- Informa temporária, quando a extração de normas municipais for concluída, deve-se usar
+		 o trecho de código comentado acima		
+	-->
+	<div class="col-xs-6 col-sm-4">
+		<div class="div-box" >
+		  	<a href="" data-toggle="popover" data-placement="bottom" data-trigger="hover"
+		  			   title="Informação" 
+		  			   data-content="Ainda não existem normas municipais cadastradas no sistema!">
+		  		<div>
+		  			Esfera Munipal
+		  		</div>
+			</a>
+		</div>
 	</div>
+	
 	</fieldset>
 </div>
+
+<script>
+$(document).ready(function(){
+    $('[data-toggle="popover"]').popover(); 
+});
+</script>

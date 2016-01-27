@@ -67,20 +67,32 @@
     <div class="form-inline" style="padding: 10px;" ng-show="mostrarNormas">     
     	<div class="panel panel-default panel-body">
 	    	<div class="container" >
+	    		
 	    		<!-- Controle de navegação -->
 	    		<button type="button" class="btn btn-info" 
 						ng-click="mostrarAnos = true; mostrarNormas = false; mostrarBack = false" 
 				 		ng-show="mostrarBack">
 				  			<span class="glyphicon glyphicon-chevron-left"></span> Voltar para lista de anos
 				</button>
+				
+				<!-- Paginação-->	
 				<ul class="pagination" ng-show="mostrarPaginacao">
-					<li>
+					
+					<li  ng-show="paginas.length > 1">
 						<a href="" ng-click="paginaAnterior()">&laquo;</a>
 					</li>
-				   	<li  ng-repeat="subPagina in paginas[index].subPaginas">
-				   		<a href="" ng-click="buscarPorPaginacao(subPagina.inicio)">{{subPagina.numero}}</a>
+				   	
+				   	<li  ng-repeat="subPagina in paginas[index].subPaginas" 
+				   		ng-class=
+				   		"paginas[index].subPaginas.indexOf(subPagina) === paginaCorrente ? 'active' : ''">
+
+				   		<a href="" ng-click="buscarPorPaginacao(subPagina)">
+				   			{{subPagina.numero}}
+				   		</a>
+				   		
 				   	</li>
-				   	<li>
+				   	
+				   	<li ng-show="paginas.length > 1">
 				   		<a href="" ng-click="proximaPagina()">&raquo;</a>
 				   	</li>
 				</ul>
@@ -112,16 +124,28 @@
 				 		ng-show="mostrarBack">
 				  			<span class="glyphicon glyphicon-chevron-left"></span> Voltar para lista de anos
 				</button>
+
+				<!-- Paginação-->	
 				<ul class="pagination" ng-show="mostrarPaginacao">
-					<li>
+					
+					<li  ng-show="paginas.length > 1">
 						<a href="" ng-click="paginaAnterior()">&laquo;</a>
 					</li>
-				   	<li  ng-repeat="subPagina in paginas[index].subPaginas">
-				   		<a href="" ng-click="buscarPorPaginacao(subPagina.inicio)">{{subPagina.numero}}</a>
+				   	
+				   	<li  ng-repeat="subPagina in paginas[index].subPaginas" 
+				   		ng-class=
+				   		"paginas[index].subPaginas.indexOf(subPagina) === paginaCorrente ? 'active' : ''">
+
+				   		<a href="" ng-click="buscarPorPaginacao(subPagina)">
+				   			{{subPagina.numero}}
+				   		</a>
+
 				   	</li>
-				   	<li>
+				   	
+				   	<li  ng-show="paginas.length > 1">
 				   		<a href="" ng-click="proximaPagina()">&raquo;</a>
 				   	</li>
+
 				</ul>
 			</div>		 		    
 		</div>

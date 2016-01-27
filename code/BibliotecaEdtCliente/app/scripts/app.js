@@ -34,11 +34,7 @@ var app = angular
       }).when('/esferas', {
         
         templateUrl: 'views/esferas.html',
-        controller: function($scope, LocalStorage){
-            $scope.clearStorage = function(){
-              LocalStorage.clear();  
-            }
-        }
+        controller: 'EsferasCtrl'
 
       }).when('/esfera/:tipoEsfera/normas', {
         

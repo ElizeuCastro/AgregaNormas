@@ -23,7 +23,8 @@ app.factory('LocalStorage', function($window) {
                 estados: scope.estados,
                 paginas: scope.paginas,
                 mostrarEstados:  scope.mostrarEstados,
-                estado: scope.estado
+                estado: scope.estado,
+                paginaCorrente: scope.paginaCorrente
             };
 
 			$window.localStorage['parametros_de_normas_filtradas'] = angular.toJson(data);
@@ -53,6 +54,7 @@ app.factory('LocalStorage', function($window) {
                         scope.paginas = data.paginas;
                         scope.mostrarEstados = data.mostrarEstados;
                         scope.estado = data.estado;
+                        scope.paginaCorrente = data.paginaCorrente;
                         return true;
                     }
                 }
