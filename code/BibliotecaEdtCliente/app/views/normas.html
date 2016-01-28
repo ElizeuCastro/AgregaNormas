@@ -1,152 +1,121 @@
-
-	<!-- Filtros de Pesquisa -->
-	<div class="form-inline" style="padding: 10px;">     
-    	<div class="panel panel-default panel-body">
+<div class="form-inline" style="margin-top:10px"> 
+   	<div class="container">
+   		<div class="panel panel-default panel-body">
         	<fieldset>
-          	<legend>Filtros de Pesquisa</legend>
+	          	<legend>Filtros de Pesquisa</legend>
 
-			<div class="btn-group btn-group-justified" role="group" >
-				<label class="checkbox-inline"><input type="checkbox" value="" 
-					ng-true-value="1" ng-false-value="-1" ng-model="tipo">Lei</label>
-				<label class="checkbox-inline"><input type="checkbox" value="" 
-					ng-true-value="2" ng-false-value="-1" ng-model="tipo">Decreto</label>
-			</div>
+				<div class="btn-group btn-group-justified" role="group" >
+					<label class="checkbox-inline"><input type="checkbox" value="" 
+						ng-true-value="1" ng-false-value="-1" ng-model="tipo">Lei</label>
+					<label class="checkbox-inline"><input type="checkbox" value="" 
+						ng-true-value="2" ng-false-value="-1" ng-model="tipo">Decreto</label>
+				</div>
 
-          	<div class="form-group">
-            	<input type="text" class="form-control" id="autenticar_login" placeholder="Numero da norma" ng-model="numero">
-          	</div>
-
-         	<button type="submit" class="btn btn-primary" ng-click="buscar()">Consultar</button>
-
-         	<div ng-show="mostrarEstados">
-				<div class="btn-group btn-group-justified" role="group">
-	            	<label>Estado</label>
+	          	<div class="form-group">
+	            	<input type="text" class="form-control" id="autenticar_login" placeholder="Numero da norma" ng-model="numero">
 	          	</div>
 
-	        	<div class="btn-group btn-group-justified" role="group" >
-			     	<select class="form-control" 
-			     	ng-model="estado" ng-options="estado.descricao for estado in estados">
-			      	</select>
-			  	</div>
-		    </div>
+	         	<button type="submit" class="btn btn-primary" ng-click="buscar()">Consultar</button>
 
-		    <img src="images/progress.gif" ng-show="loading" style="position:absolute; 
-		    									  top:12%; 
-		    									  right:15%; 
-		    									  margin-top:-12px; 
-		    									  margin-right:-15px;">
+	         	<div ng-show="mostrarEstados">
+					<div class="btn-group btn-group-justified" role="group">
+		            	<label>Estado</label>
+		          	</div>
 
-		     <!-- Container de erro -->
-        	<div class="alert alert-danger fade in" style="margin-top: 10px;" ng-show="showErro">
-            	<a href="" class="close" ng-click="showErro = false">&times;</a>
-            	<p class="text-center">{{messagemDeErro}}</p>
-          	</div>
-        </fieldset>  
-      </div>
-    </div>
+		        	<div class="btn-group btn-group-justified" role="group" >
+				     	<select class="form-control" 
+				     	ng-model="estado" ng-options="estado.descricao for estado in estados">
+				      	</select>
+				  	</div>
+			    </div>
 
-	<!-- Lista de Anos -->
-    <div class="form-inline" style="padding: 10px;" ng-show="mostrarAnos">     
-    	<div class="panel panel-default panel-body">
-        	<div class="container">
-		  		<table class="table table-striped">
-				    <tbody>
-				      <tr ng-repeat='ano in anos'>
-				        <td ng-repeat='coluna in ano.colunas'>
-				        	<a href="" 
-				        	ng-click="buscarNormasPorAno(coluna)">{{coluna}}</a>
-				        </td>
-				      </tr>
-				    </tbody>
-				 </table>
-		 	</div>		    
-		</div>
-    </div>
+			    <img src="images/progress.gif" ng-show="loading" 
+			    style="position:absolute; top:50%; right:50%; margin-top:-50px; margin-right:-50px;">
 
-	<!-- Lista de Normas -->
-    <div class="form-inline" style="padding: 10px;" ng-show="mostrarNormas">     
-    	<div class="panel panel-default panel-body">
-	    	<div class="container" >
-	    		
-	    		<!-- Controle de navegação -->
-	    		<button type="button" class="btn btn-info" 
-						ng-click="mostrarAnos = true; mostrarNormas = false; mostrarBack = false" 
-				 		ng-show="mostrarBack">
-				  			<span class="glyphicon glyphicon-chevron-left"></span> Voltar para lista de anos
-				</button>
+			     <!-- Container de erro -->
+	        	<div class="alert alert-danger fade in" style="margin-top: 10px;" ng-show="showErro">
+	            	<a href="" class="close" ng-click="showErro = false">&times;</a>
+	            	<p class="text-center">{{messagemDeErro}}</p>
+	          	</div>
+        	</fieldset>  
+     	</div>
+	</div>
+</div>
+
+<!-- Lista de Anos -->
+<div class="container" ng-show="mostrarAnos">
+	<table class="table table-striped">
+	    <tbody>
+		    <tr ng-repeat='ano in anos'>
+		        <td ng-repeat='coluna in ano.colunas'>
+		        	<a href="" ng-click="buscarNormasPorAno(coluna)">{{coluna}}</a>
+				</td>
+		    </tr>
+		</tbody>
+	</table>
+</div>
+
+<!-- Lista de Normas -->
+<div class="container" ng-show="mostrarNormas">
+	<!-- Controle de navegação -->
+	<button type="button" class="btn btn-info" ng-click="mostrarAnos = true; mostrarNormas = false; 				mostrarBack = false" ng-show="mostrarBack">
+		<span class="glyphicon glyphicon-chevron-left"></span> Voltar para lista de anos
+	</button>
 				
-				<!-- Paginação-->	
-				<ul class="pagination" ng-show="mostrarPaginacao">
+	<!-- Paginação-->	
+	<ul class="pagination" ng-show="mostrarPaginacao">
 					
-					<li  ng-show="paginas.length > 1">
-						<a href="" ng-click="paginaAnterior()">&laquo;</a>
-					</li>
+		<li  ng-show="paginas.length > 1">
+			<a href="" ng-click="paginaAnterior()">&laquo;</a>
+		</li>
 				   	
-				   	<li  ng-repeat="subPagina in paginas[index].subPaginas" 
-				   		ng-class=
+		<li  ng-repeat="subPagina in paginas[index].subPaginas" ng-class=
 				   		"paginas[index].subPaginas.indexOf(subPagina) === paginaCorrente ? 'active' : ''">
-
-				   		<a href="" ng-click="buscarPorPaginacao(subPagina)">
-				   			{{subPagina.numero}}
-				   		</a>
-				   		
-				   	</li>
+			<a href="" ng-click="buscarPorPaginacao(subPagina)">{{subPagina.numero}}</a>
+		</li>
 				   	
-				   	<li ng-show="paginas.length > 1">
-				   		<a href="" ng-click="proximaPagina()">&raquo;</a>
-				   	</li>
-				</ul>
+		<li ng-show="paginas.length > 1">
+	 		<a href="" ng-click="proximaPagina()">&raquo;</a>
+	   	</li>
+	</ul>
 				
-				<table class="table table-striped">
-				    <thead>
-				    	<tr>
-							<td>Índice</td>
-				        	<td>Tipo</td>
-					        <td>Número</td>
-					        <td>Data de Publicação</td>
-							<td>Resumo</td>
-					    </tr>
-					</thead>
-				    <tbody>
-				    	<tr ng-repeat='norma in normas'>
-							<td class="col-md-1">{{normas.indexOf(norma) + 1}}</td>
-					        <td class="col-md-1">{{norma.tipoDeNorma.descricao}}</td>
-					   		<td class="col-md-1"><a  href="" ng-click="abrirDetalhe(norma)">{{norma.numero}}</a></td>
-						    <td class="col-md-2">{{norma.dataPublicacao}}</td>
-					   		<td class="col-md-12">{{norma.resumo}}</td>
-				      	</tr>
-					</tbody>
-				</table>
+	<table class="table table-striped">
+    	<thead>
+	    	<tr>
+				<td>Índice</td>
+		       	<td>Tipo</td>
+		        <td>Número</td>
+		        <td>Data de Publicação</td>
+				<td>Resumo</td>
+		    </tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat='norma in normas'>
+				<td>{{ $index + 1 }}</td>
+				<td>{{norma.tipoDeNorma.descricao}}</td>
+				<td>
+					<a  href="" ng-click="abrirDetalhe(norma)">{{norma.numero}}</a>
+				</td>
+			    <td >{{norma.dataPublicacao}}</td>
+			    <td >{{norma.resumo}}</td>
+			</tr>
+		</tbody>
+	</table>
 
-				<!-- Controle de navegação -->
-				<button type="button" class="btn btn-info" 
-						ng-click="mostrarAnos = true; mostrarNormas = false; mostrarBack = false" 
-				 		ng-show="mostrarBack">
-				  			<span class="glyphicon glyphicon-chevron-left"></span> Voltar para lista de anos
-				</button>
-
-				<!-- Paginação-->	
-				<ul class="pagination" ng-show="mostrarPaginacao">
+	<!-- Paginação-->	
+	<ul class="pagination" ng-show="mostrarPaginacao">
 					
-					<li  ng-show="paginas.length > 1">
-						<a href="" ng-click="paginaAnterior()">&laquo;</a>
-					</li>
+		<li  ng-show="paginas.length > 1">
+			<a href="" ng-click="paginaAnterior()">&laquo;</a>
+		</li>
 				   	
-				   	<li  ng-repeat="subPagina in paginas[index].subPaginas" 
-				   		ng-class=
+		<li  ng-repeat="subPagina in paginas[index].subPaginas" ng-class=
 				   		"paginas[index].subPaginas.indexOf(subPagina) === paginaCorrente ? 'active' : ''">
-
-				   		<a href="" ng-click="buscarPorPaginacao(subPagina)">
-				   			{{subPagina.numero}}
-				   		</a>
-
-				   	</li>
+			<a href="" ng-click="buscarPorPaginacao(subPagina)">{{subPagina.numero}}</a>
+		</li>
 				   	
-				   	<li  ng-show="paginas.length > 1">
-				   		<a href="" ng-click="proximaPagina()">&raquo;</a>
-				   	</li>
-
-				</ul>
-			</div>		 		    
-		</div>
-    </div>
+		<li ng-show="paginas.length > 1">
+	 		<a href="" ng-click="proximaPagina()">&raquo;</a>
+	   	</li>
+	</ul>
+</div>
