@@ -62,4 +62,5 @@ app.factory('ServicoNormas', function($http) {
   };
   
   return factory;
+  
 }); 
