@@ -6,14 +6,14 @@ import java.sql.SQLException;
 
 public final class Conexao {
 
-    private static final String DB_USER = "root";
-    private static final String DB_PASSWORD = "root";
-    private static final String PATH_DB = "jdbc:mysql://localhost/bibliotecaedt";
+//    private static final String DB_USER = "root";
+//    private static final String DB_PASSWORD = "root";
+//    private static final String PATH_DB = "jdbc:mysql://localhost/bibliotecaedt";
     
     //jelastic db
-    //private static final String DB_USER = "root";
-    //private static final String DB_PASSWORD = "AXCCNpReXm";
-    //private static final String PATH_DB = "jdbc:mysql://mysql79384-env-0606050.jelasticlw.com.br/bibliotecaedt";
+    private static final String DB_USER = "root";
+    private static final String DB_PASSWORD = "ALIazp33552";
+    private static final String PATH_DB = "jdbc:mysql://mysql80184-bibliotecaedt.jelasticlw.com.br/bibliotecaedtdb";
     private static Connection connection;
 
     public static Connection getConexao() {
