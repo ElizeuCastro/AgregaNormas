@@ -12,7 +12,7 @@
 				</div>
 
 	          	<div class="form-group">
-	            	<input type="text" class="form-control" id="autenticar_login" placeholder="Numero da norma" ng-model="numero">
+	            	<input type="text" class="form-control" size="50" placeholder="Numero da norma" ng-model="numero">
 	          	</div>
 
 	         	<button type="submit" class="btn btn-primary" ng-click="buscar()">Consultar</button>
@@ -78,7 +78,7 @@
 	 		<a href="" ng-click="proximaPagina()">&raquo;</a>
 	   	</li>
 	</ul>
-				
+	
 	<table class="table table-striped">
     	<thead>
 	    	<tr>
@@ -89,19 +89,18 @@
 				<td>Resumo</td>
 		    </tr>
 		</thead>
-		<tbody>
-			<tr ng-repeat='norma in normas'>
+		<tbody class="example-animate-container">
+			<tr class="animate-repeat" ng-repeat='norma in normas track by norma.identificador'>
 				<td>{{ $index + 1 }}</td>
 				<td>{{norma.tipoDeNorma.descricao}}</td>
 				<td>
 					<a  href="" ng-click="abrirDetalhe(norma)">{{norma.numero}}</a>
 				</td>
-			    <td >{{norma.dataPublicacao}}</td>
+			    <td>{{norma.dataPublicacao}}</td>
 			    <td >{{norma.resumo}}</td>
 			</tr>
 		</tbody>
 	</table>
-
 	<!-- Paginação-->	
 	<ul class="pagination" ng-show="mostrarPaginacao">
 					

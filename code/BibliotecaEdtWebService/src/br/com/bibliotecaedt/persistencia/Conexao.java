@@ -6,20 +6,20 @@ import java.sql.SQLException;
 
 public final class Conexao {
 
-//    private static final String DB_USER = "root";
-//    private static final String DB_PASSWORD = "root";
-//    private static final String PATH_DB = "jdbc:mysql://localhost/bibliotecaedt";
+    private static final String DB_USER = "root";
+    private static final String DB_PASSWORD = "root";
+    private static final String DB_PATH = "jdbc:mysql://localhost/bibliotecaedt";
     
     //jelastic db
-    private static final String DB_USER = "root";
-    private static final String DB_PASSWORD = "ALIazp33552";
-    private static final String PATH_DB = "jdbc:mysql://mysql80184-bibliotecaedt.jelasticlw.com.br/bibliotecaedtdb";
+//    private static final String DB_USER = "root";
+//    private static final String DB_PASSWORD = "ALIazp33552";
+//    private static final String DB_PATH = "jdbc:mysql://mysql80184-bibliotecaedt.jelasticlw.com.br/bibliotecaedtdb";
     private static Connection connection;
 
     public static Connection getConexao() {
 	try {
 	    Class.forName("com.mysql.jdbc.Driver");
-	    connection = DriverManager.getConnection(PATH_DB, DB_USER,
+	    connection = DriverManager.getConnection(DB_PATH, DB_USER,
 		    DB_PASSWORD);
 	} catch (SQLException e) {
 	    throw new RuntimeException(e);
