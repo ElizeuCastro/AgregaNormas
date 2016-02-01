@@ -275,7 +275,7 @@ class NormaFederalDao {
 		norma.setIdentificador(resultSet.getInt(1));
 		norma.setNumero(resultSet.getString(2));
 		norma.setAno(resultSet.getString(3));
-		norma.setDataPublicacao(resultSet.getString(4));
+		norma.setDataPublicacao(Util.converterParaDataBrasileira(resultSet.getString(4)));
 		norma.setResumo(resultSet.getString(5));
 		norma.setDescricao(resultSet.getString(6));
 		final TipoDeNorma tipoDeNorma = new TipoDeNorma(
@@ -418,7 +418,7 @@ class NormaFederalDao {
 		norma.setIdentificador(resultSet.getInt(1));
 		norma.setNumero(resultSet.getString(2));
 		norma.setAno(resultSet.getString(3));
-		norma.setDataPublicacao(resultSet.getString(4));
+		norma.setDataPublicacao(Util.converterParaDataBrasileira(resultSet.getString(4)));
 		norma.setResumo(resultSet.getString(5));
 		norma.setDescricao(resultSet.getString(6));
 		final TipoDeNorma tipoDeNorma = new TipoDeNorma(

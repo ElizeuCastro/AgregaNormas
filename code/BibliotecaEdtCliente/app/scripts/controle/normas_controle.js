@@ -1,7 +1,7 @@
 'use strict';
 
 app.controller('NormasCtrl', 
-    function ($scope, $rootScope, $location, $routeParams, ServicoNormas, LocalStorage) {
+    function ($scope, $rootScope, $location, $timeout, $routeParams, ServicoNormas, LocalStorage) {
 
     var NORMA_EMPTY = " Não foram encontradas normas para os filtros indicados ",
         CHOOSE_STATE = "Escolha um estado";
@@ -80,8 +80,7 @@ app.controller('NormasCtrl',
                 if (status === HttpStatus.OK){
                     if (data !== undefined && data.length > 0){
                         preparaTabelasDeAnos(data);
-                        $scope.loading = false;
-                        LocalStorage.save($scope);
+                        esconderProgress();
                     } else{
                         $scope.loading = false;
                         $scope.mostrarAnos = false;
@@ -121,9 +120,7 @@ app.controller('NormasCtrl',
 
                         preparaNormas(data);
 
-                        $scope.loading = false;
-
-                        LocalStorage.save($scope);
+                        esconderProgress();
                     
                     } else {
                         $scope.loading = false;
@@ -143,6 +140,17 @@ app.controller('NormasCtrl',
 
         }
     };
+
+    function esconderProgress(){
+         $timeout(function(){
+
+            $scope.loading = false;
+            $scope.$digest();
+
+            LocalStorage.save($scope);
+
+        }, 500);
+    }
 
     /**
     * Define o comportemento de busca de normas estaduais
@@ -178,8 +186,7 @@ app.controller('NormasCtrl',
                 if (status === HttpStatus.OK){
                     if (data !== undefined && data.length > 0){
                         preparaTabelasDeAnos(data);
-                        $scope.loading = false;
-                        LocalStorage.save($scope);
+                        esconderProgress();
                     } else{
                         $scope.loading = false;
                         $scope.mostrarAnos = false;
@@ -221,9 +228,7 @@ app.controller('NormasCtrl',
 
                         preparaNormas(data);
 
-                        $scope.loading = false;
-
-                        LocalStorage.save($scope);
+                        esconderProgress();
                     
                     } else {
                         $scope.loading = false;
@@ -272,8 +277,7 @@ app.controller('NormasCtrl',
                         data.normas !== undefined &&
                         data.normas.length > 0){
                         $scope.normas = data.normas;
-                        $scope.loading = false;
-                        LocalStorage.save($scope);
+                        esconderProgress();
                     } else {
                         $scope.loading = false;
                         $scope.showErro = true;        
@@ -303,8 +307,7 @@ app.controller('NormasCtrl',
                         data.normas !== undefined &&
                         data.normas.length > 0){
                         $scope.normas = data.normas;
-                        $scope.loading = false;
-                        LocalStorage.save($scope);
+                        esconderProgress();
                     } else {
                         $scope.loading = false;
                         $scope.showErro = true;        
@@ -385,8 +388,7 @@ app.controller('NormasCtrl',
                     if (data !==  undefined && data.length > 0){
                         $scope.normas = data;
                         $scope.mostrarBack = true;
-                        $scope.loading = false;
-                        LocalStorage.save($scope);
+                        esconderProgress();
                     } else{
                         $scope.mostrarBack = false;
                         $scope.showErro = true;
@@ -414,8 +416,7 @@ app.controller('NormasCtrl',
                     if (data !== undefined && data.length > 0){
                         $scope.normas = data;
                         $scope.mostrarBack = true;
-                        $scope.loading = false;
-                        LocalStorage.save($scope);
+                        esconderProgress();
                     } else{
                         $scope.mostrarBack = false;
                         $scope.showErro = true;
@@ -499,8 +500,7 @@ app.controller('NormasCtrl',
                 if (status == HttpStatus.OK){
                     if (data.length > 0){
                         $scope.estados = data;
-                        $scope.loading = false;
-                        LocalStorage.save($scope);
+                        esconderProgress();
                     } else{
                         $scope.loading = false;
                         console.log("Erro");
